@@ -15,16 +15,7 @@ namespace Crisis
 
         public string Name { get; set; }
 
-        private Client client;
-        public Client Client
-        {
-            get => client;
-            set
-            {
-                client?.Disconnect();
-                client = value;
-            }
-        }
+        public Client Client { get; set; }
         
         public Character()
         {
@@ -41,7 +32,7 @@ namespace Crisis
 
         public void Hear(string source, string text)
         {
-            client?.Send(new HearMessage { Time = DateTime.Now, Rank = string.Empty , Name = source, Text = text });
+            Client?.Send(new HearMessage { Time = DateTime.Now, Rank = string.Empty , Name = source, Text = text });
         }
     }
 }
