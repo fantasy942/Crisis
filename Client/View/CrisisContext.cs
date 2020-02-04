@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Crisis.Model;
 using Crisis.Messages;
+using System;
 
 namespace Crisis.View
 {
@@ -17,7 +18,6 @@ namespace Crisis.View
             mainForm = new MainForm(model);
 
             _ = DoAsync();
-            _ = MessageLoopAsync();
         }
 
         private async Task DoAsync()
@@ -62,24 +62,20 @@ namespace Crisis.View
                 MainForm = mainForm;
                 connectForm.Hide();
                 mainForm.Show();
-                await new TaskCompletionSource<object>().Task; //Wait forever. TEMPORARY, REMOVE THIS
-            }
-        }
 
-        private async Task MessageLoopAsync()
-        {
-            const int limit = 500;
-
-            while (true)
-            {
-                for (int i = 0; i < limit && model.TryPopMessage(out Message msg); i++)
+                while (true)
                 {
-                    if (msg is HearMessage hmsg)
+                    const int limit = 500;
+
+                    for (int i = 0; i < limit && model.TryPopMessage(out Message msg); i++)
                     {
-                        mainForm.ToChat($"{hmsg.Time} | {hmsg.Rank} {hmsg.Name}: {hmsg.Text}");
+                        if (msg is HearMessage hmsg)
+                        {
+                            mainForm.ToChat($"{hmsg.Time}{Environment.NewLine}{hmsg.Rank} {hmsg.Name}: {hmsg.Text}");
+                        }
                     }
+                    await Task.Delay(1); //Let the UI breath
                 }
-                await Task.Delay(1); //Let the UI breath
             }
         }
     }
