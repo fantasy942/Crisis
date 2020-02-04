@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Crisis.Messages
+namespace Crisis.Messages.Server
 {
     public enum RegisterResponse
     {
@@ -13,7 +13,7 @@ namespace Crisis.Messages
     }
 
     [Serializable]
-    public class RegisterResponeMessage : ServerMessage
+    public class RegisterResponeMessage : Message
     {
         public RegisterResponse Response;
     }

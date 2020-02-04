@@ -52,7 +52,6 @@
   <ItemGroup>
     <Compile Include="Model\ConnectAttemptResult.cs" />
     <Compile Include="Model\CrisisModel.cs" />
-    <Compile Include="Model\IMessageSender.cs" />
     <Compile Include="View\ConnectForm.cs">
       <SubType>Form</SubType>
     </Compile>

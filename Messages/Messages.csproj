@@ -66,21 +66,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Messages\AuthConfirmMessage.cs" />
-    <Compile Include="Messages\AuthDenyMessage.cs" />
-    <Compile Include="Messages\HearMessage.cs" />
-    <Compile Include="Messages\RegisterMessage.cs" />
-    <Compile Include="Messages\RegisterResponeMessage.cs" />
-    <Compile Include="Messages\SpeechMessage.cs" />
-    <Compile Include="Messages\ClientMessage.cs" />
-    <Compile Include="Messages\AuthMessage.cs" />
+    <Compile Include="Messages\Server\AuthConfirmMessage.cs" />
+    <Compile Include="Messages\Server\AuthDenyMessage.cs" />
+    <Compile Include="Messages\Server\HearMessage.cs" />
+    <Compile Include="Messages\Client\RegisterMessage.cs" />
+    <Compile Include="Messages\Server\RegisterResponeMessage.cs" />
+    <Compile Include="Messages\Client\SpeechMessage.cs" />
+    <Compile Include="Messages\Client\AuthMessage.cs" />
     <Compile Include="Messages\Message.cs" />
-    <Compile Include="Messages\ServerMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

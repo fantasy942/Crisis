@@ -1,6 +1,8 @@
 ﻿using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using Crisis.Messages;
+using Crisis.Messages.Client;
+using Crisis.Messages.Server;
 
 namespace Crisis.Model
 {

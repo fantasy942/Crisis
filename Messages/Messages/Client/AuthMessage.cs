@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Crisis.Messages
+namespace Crisis.Messages.Client
 {
     [Serializable]
-    public class AuthMessage : ClientMessage
+    public class AuthMessage : Message
     {
         public string Username;
         public string Password;

@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Crisis.Messages
+namespace Crisis.Messages.Client
 {
     [Serializable]
-    public class SpeechMessage : ClientMessage
+    public class SpeechMessage : Message
     {
         public string Text;
     }

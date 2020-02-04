@@ -62,18 +62,7 @@ namespace Crisis.View
                 connectForm.Hide();
                 mainForm.Show();
 
-                while (true)
-                {
-                    const int limit = 500;
-                    for (int i = 0; i < limit && model.TryPopMessage(out Message msg); i++)
-                    {
-                        if (msg is HearMessage hmsg)
-                        {
-                            mainForm.ToChat($"{hmsg.Time}{Environment.NewLine}{hmsg.Rank} {hmsg.Name}: {hmsg.Text}");
-                        }
-                    }
-                    await Task.Delay(1); //Let the UI breath
-                }
+                await new TaskCompletionSource<object>().Task; //Wait forever. Temporary solution.
             }
         }
     }

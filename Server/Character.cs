@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Crisis.Messages;
+using Crisis.Messages.Server;
 using Crisis.Network;
 
 namespace Crisis

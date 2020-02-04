@@ -1,4 +1,6 @@
 ﻿using Crisis.Messages;
+using Crisis.Messages.Client;
+using Crisis.Messages.Server;
 
 namespace Crisis.Network
 {

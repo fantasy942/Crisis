@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace Crisis.Messages
+namespace Crisis.Messages.Server
 {
     [Serializable]
-    public class HearMessage : ServerMessage
+    public class HearMessage : Message
     {
         public DateTime Time;
         public string Rank;

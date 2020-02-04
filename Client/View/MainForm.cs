@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using Crisis.Model;
+using Crisis.Messages.Client;
+using Crisis.Messages.Server;
 
 namespace Crisis.View
 {
@@ -14,14 +16,9 @@ namespace Crisis.View
             InitializeComponent();
         }
 
-        public void ToChat(string text)
-        {
-            chatOutput.AppendText($"{Environment.NewLine}{text}");
-        }
-
         private void sendButton_Click(object sender, EventArgs e)
         {
-            model.Send(new Messages.SpeechMessage { Text = chatInput.Text });
+            model.Send(new SpeechMessage { Text = chatInput.Text });
             chatInput.Text = string.Empty;
         }
 
@@ -32,6 +29,18 @@ namespace Crisis.View
                 sendButton_Click(sender, e);
                 e.Handled = true;
                 e.SuppressKeyPress = true;
+            }
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            const int limit = 500;
+            for (int i = 0; i < limit && model.TryPopMessage(out Messages.Message msg); i++)
+            {
+                if (msg is HearMessage hmsg)
+                {
+                    chatOutput.AppendText($"{hmsg.Rank} {hmsg.Name} | {hmsg.Time}{Environment.NewLine}{hmsg.Text}{Environment.NewLine}");
+                }
             }
         }
     }
