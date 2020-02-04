@@ -6,11 +6,11 @@ namespace Crisis.View
 {
     public partial class MainForm : Form
     {
-        private readonly IMessageSender msgSender;
+        private readonly CrisisModel model;
 
-        public MainForm(IMessageSender sender)
+        public MainForm(CrisisModel sender)
         {
-            msgSender = sender;
+            model = sender;
             InitializeComponent();
         }
 
@@ -21,7 +21,7 @@ namespace Crisis.View
 
         private void sendButton_Click(object sender, EventArgs e)
         {
-            msgSender.Send(new Messages.SpeechMessage { Text = chatInput.Text });
+            model.Send(new Messages.SpeechMessage { Text = chatInput.Text });
             chatInput.Text = string.Empty;
         }
 

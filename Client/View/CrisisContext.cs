@@ -9,12 +9,13 @@ namespace Crisis.View
     {
         private readonly CrisisModel model = new CrisisModel();
 
-        private readonly LoginForm loginForm = new LoginForm();
+        private readonly LoginForm loginForm;
         private readonly ConnectForm connectForm = new ConnectForm();
         private readonly MainForm mainForm;
 
         public CrisisContext()
         {
+            loginForm = new LoginForm(model);
             mainForm = new MainForm(model);
 
             _ = DoAsync();
@@ -31,21 +32,19 @@ namespace Crisis.View
                 connectForm.Hide();
                 mainForm.Hide();
 
-                {
-                    var AwaitLogin = new TaskCompletionSource<object>();
-                    void local() => AwaitLogin.SetResult(null);
-                    loginForm.LoginPressed += local;
-                    await AwaitLogin.Task;
-                    loginForm.LoginPressed -= local;
-                }
-                
+                var AwaitLogin = new TaskCompletionSource<object>();
+                void local() => AwaitLogin.SetResult(null);
+                loginForm.LoginPressed += local;
+                await AwaitLogin.Task;
+                loginForm.LoginPressed -= local;
+
                 //Order matters, if we close loginForm first then the whole application will shut itself down
                 MainForm = connectForm;
                 loginForm.Hide();
                 connectForm.Show();
 
                 //client.Connect("192.223.30.122", 4242);
-                var result = await model.Connect("localhost", 4242, loginForm.Username, loginForm.Password); ;
+                var result = await model.Connect("localhost", 4242, loginForm.Username, loginForm.Password);
 
                 if (result == ConnectAttemptResult.GenericFail)
                 {
@@ -66,7 +65,6 @@ namespace Crisis.View
                 while (true)
                 {
                     const int limit = 500;
-
                     for (int i = 0; i < limit && model.TryPopMessage(out Message msg); i++)
                     {
                         if (msg is HearMessage hmsg)

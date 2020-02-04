@@ -69,6 +69,8 @@
     <Compile Include="Messages\AuthConfirmMessage.cs" />
     <Compile Include="Messages\AuthDenyMessage.cs" />
     <Compile Include="Messages\HearMessage.cs" />
+    <Compile Include="Messages\RegisterMessage.cs" />
+    <Compile Include="Messages\RegisterResponeMessage.cs" />
     <Compile Include="Messages\SpeechMessage.cs" />
     <Compile Include="Messages\ClientMessage.cs" />
     <Compile Include="Messages\AuthMessage.cs" />

@@ -1,30 +1,34 @@
-﻿using System;
+﻿using Crisis.Model;
+using System;
 using System.Windows.Forms;
 
 namespace Crisis.View
 {
     public partial class LoginForm : Form
     {
-        public string Username => username.Text;
-        public string Password => "";
+        private readonly CrisisModel model;
+
+        public string Username => usernameBox.Text;
+        public string Password => passwordBox.Text;
 
         public event Action LoginPressed;
 
-        public LoginForm()
+        public string Error
         {
+            get => errorStatus.Text;
+            set => errorStatus.Text = value;
+        }
+
+        public LoginForm(CrisisModel model)
+        {
+            this.model = model;
             InitializeComponent();
             Error = string.Empty;
         }
 
         private void login_Click(object sender, EventArgs e)
         {
-            LoginPressed();
-        }
-
-        public string Error
-        {
-            get => errorStatus.Text;
-            set => errorStatus.Text = value;
+            LoginPressed?.Invoke();
         }
     }
 }

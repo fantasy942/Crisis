@@ -6,7 +6,7 @@ namespace Crisis.Network
     {
         public int ID { get; }
         /// <summary>
-        /// While the client is not authed it can only receive auth messages, the rest will be dropped.
+        /// While the client is not authed it can only receive auth and register messages, the rest will be dropped.
         /// </summary>
         public bool Authed { get; private set; }
         public bool Connected { get; private set; } = true;
@@ -35,6 +35,10 @@ namespace Crisis.Network
                 Send(new AuthConfirmMessage());
                 Authed = true;
                 return;
+            }
+            else if (msg is RegisterMessage)
+            {
+                Send(new RegisterResponeMessage { Response = RegisterResponse.Ok }); //TODO: Get a db
             }
 
             if (!Authed) return;

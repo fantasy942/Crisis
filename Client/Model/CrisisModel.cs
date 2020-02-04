@@ -4,7 +4,7 @@ using Crisis.Messages;
 
 namespace Crisis.Model
 {
-    public class CrisisModel : IMessageSender
+    public class CrisisModel
     {
         private readonly Telepathy.Client client = new Telepathy.Client();
         private readonly ConcurrentQueue<Message> msgs = new ConcurrentQueue<Message>();
