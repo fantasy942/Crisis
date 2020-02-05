@@ -1,4 +1,5 @@
-﻿using Crisis.Messages;
+﻿using System;
+using Crisis.Messages;
 using Crisis.Messages.Client;
 using Crisis.Messages.Server;
 
@@ -29,12 +30,15 @@ namespace Crisis.Network
                 {
                     return;
                 }
+
                 Character = new Character
                 {
                     Client = this,
-                    Name = authmsg.Username
+                    Name = authmsg.Mail
                 };
                 Send(new AuthConfirmMessage());
+                Send(new GMChangedMessage { IsGM = true });
+                Send(new TimeTurnMessage { Time = DateTime.UtcNow, TurnEnd = DateTime.UtcNow.AddHours(1) });
                 Authed = true;
                 return;
             }

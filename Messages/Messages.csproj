@@ -68,12 +68,14 @@
   <ItemGroup>
     <Compile Include="Messages\Server\AuthConfirmMessage.cs" />
     <Compile Include="Messages\Server\AuthDenyMessage.cs" />
+    <Compile Include="Messages\Server\GMChangedMessage.cs" />
     <Compile Include="Messages\Server\HearMessage.cs" />
     <Compile Include="Messages\Client\RegisterMessage.cs" />
     <Compile Include="Messages\Server\RegisterResponeMessage.cs" />
     <Compile Include="Messages\Client\SpeechMessage.cs" />
     <Compile Include="Messages\Client\AuthMessage.cs" />
     <Compile Include="Messages\Message.cs" />
+    <Compile Include="Messages\Server\TimeTurnMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
