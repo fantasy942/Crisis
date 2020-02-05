@@ -8,7 +8,7 @@ namespace Crisis.View
     {
         private readonly CrisisModel model;
 
-        public string Username => usernameBox.Text;
+        public string Username => emailBox.Text;
         public string Password => passwordBox.Text;
 
         public event Action LoginPressed;

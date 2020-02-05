@@ -16,7 +16,7 @@ namespace Crisis.Model
         public Task<ConnectAttemptResult> Connect(string ip, int port, string username, string password)
         {
             client.Connect(ip, port);
-            authMessage = new AuthMessage { Username = username, Password = password };
+            authMessage = new AuthMessage { Mail = username, Password = password };
             Task.Run(ListeningLoop);
             ConnectResult = new TaskCompletionSource<ConnectAttemptResult>();
             return ConnectResult.Task;
