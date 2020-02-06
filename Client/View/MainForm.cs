@@ -8,16 +8,18 @@ namespace Crisis.View
 {
     public partial class MainForm : Form
     {
-        private TimeSpan serverTimeDifference = TimeSpan.Zero;
+
+        private DateTime serverTime = DateTime.MinValue; //Approx
         private DateTime doomsdayTime = DateTime.MinValue;
 
         private readonly CrisisModel model;
         private readonly GMForm gmForm;
 
-        public MainForm(CrisisModel sender)
+        public MainForm(CrisisModel model)
         {
-            model = sender;
-            gmForm = new GMForm(model.Send);
+            this.model = model;
+            model.MessageArrived += Receive;
+            gmForm = new GMForm(model);
             InitializeComponent();
         }
 
@@ -39,34 +41,33 @@ namespace Crisis.View
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            const int limit = 500;
-            for (int i = 0; i < limit && model.TryPopMessage(out Messages.Message msg); i++)
-            {
-                if (msg is HearMessage hmsg)
-                {
-                    chatOutput.AppendText($"{hmsg.Rank} {hmsg.Name} | {hmsg.Time}{Environment.NewLine}{hmsg.Text}{Environment.NewLine}");
-                }
-                else if (msg is GMChangedMessage gmsg)
-                {
-                    gmButton.Visible = gmsg.IsGM;
-                    if (!gmsg.IsGM)
-                    {
-                        gmForm.Hide();
-                    }
-                }
-                else if (msg is TimeTurnMessage ttmsg)
-                {
-                    serverTimeDifference = DateTime.UtcNow.Subtract(ttmsg.Time);
-                    doomsdayTime = ttmsg.TurnEnd;
-                    turnCountLabel.Text = $"Current turn{Environment.NewLine}{ttmsg.Turn}";
-                    turnTimeLabel.Text = $"Turn ends at{Environment.NewLine}{ttmsg.TurnEnd:HH:mm:ss}";
-                }
-            }
-
-            var serverTime = DateTime.UtcNow + serverTimeDifference;
+            serverTime = serverTime.AddMilliseconds(timer.Interval);
             timeLabel.Text = $"Current time{Environment.NewLine}{serverTime:HH:mm:ss}";
             var timeLeftToDoomsday = doomsdayTime - serverTime;
-            doomsdayLabel.Text = $"Turn ends in{Environment.NewLine}{timeLeftToDoomsday.ToString(timeLeftToDoomsday > TimeSpan.FromMinutes(1) ? @"hh\:mm\:ss" : @"ss\.ff")}";
+            doomsdayLabel.Text = $"Turn ends in{Environment.NewLine}{timeLeftToDoomsday:hh\\:mm\\:ss}";
+        }
+
+        private void Receive(Messages.Message msg)
+        {
+            if (msg is HearMessage hmsg)
+            {
+                chatOutput.AppendText($"{hmsg.Rank} {hmsg.Name} | {hmsg.Time}{Environment.NewLine}{hmsg.Text}{Environment.NewLine}");
+            }
+            else if (msg is GMChangedMessage gmsg)
+            {
+                gmButton.Visible = gmsg.IsGM;
+                if (!gmsg.IsGM)
+                {
+                    gmForm.Hide();
+                }
+            }
+            else if (msg is TimeTurnMessage ttmsg)
+            {
+                serverTime = ttmsg.Time;
+                doomsdayTime = ttmsg.TurnEnd;
+                turnCountLabel.Text = $"Current turn{Environment.NewLine}{ttmsg.Turn}";
+                turnTimeLabel.Text = $"Turn ends at{Environment.NewLine}{ttmsg.TurnEnd:HH:mm:ss}";
+            }
         }
 
         private void gmButton_Click(object sender, EventArgs e)

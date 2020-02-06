@@ -46,6 +46,7 @@
             this.adminReadyLabel = new System.Windows.Forms.Label();
             this.readyCheck = new System.Windows.Forms.CheckBox();
             this.turnCountLabel = new System.Windows.Forms.Label();
+            this.gmButton = new System.Windows.Forms.Button();
             this.characterPanel = new System.Windows.Forms.Panel();
             this.characterLabel = new System.Windows.Forms.Label();
             this.characterBox = new System.Windows.Forms.TextBox();
@@ -54,7 +55,6 @@
             this.roomLabel = new System.Windows.Forms.Label();
             this.roomPeopleBox = new System.Windows.Forms.TextBox();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.gmButton = new System.Windows.Forms.Button();
             this.centralPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.chatPanel.SuspendLayout();
@@ -76,7 +76,7 @@
             this.centralPanel.Controls.Add(this.roomPanel, 2, 1);
             this.centralPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.centralPanel.Location = new System.Drawing.Point(0, 0);
-            this.centralPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.centralPanel.Margin = new System.Windows.Forms.Padding(4);
             this.centralPanel.Name = "centralPanel";
             this.centralPanel.RowCount = 3;
             this.centralPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 172F));
@@ -92,7 +92,7 @@
             this.panel1.Controls.Add(this.goalsList);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(4, 4);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(259, 164);
             this.panel1.TabIndex = 6;
@@ -125,7 +125,7 @@
             "Branch: Get the keys of the clown car back.",
             "Faction: Lure children into the severs through grates."});
             this.goalsList.Location = new System.Drawing.Point(4, 34);
-            this.goalsList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.goalsList.Margin = new System.Windows.Forms.Padding(4);
             this.goalsList.Name = "goalsList";
             this.goalsList.ScrollAlwaysVisible = true;
             this.goalsList.SelectionMode = System.Windows.Forms.SelectionMode.None;
@@ -141,7 +141,7 @@
             this.chatPanel.Controls.Add(this.chatInput);
             this.chatPanel.Controls.Add(this.chatOutput);
             this.chatPanel.Location = new System.Drawing.Point(271, 176);
-            this.chatPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chatPanel.Margin = new System.Windows.Forms.Padding(4);
             this.chatPanel.Name = "chatPanel";
             this.chatPanel.Size = new System.Drawing.Size(616, 224);
             this.chatPanel.TabIndex = 0;
@@ -150,7 +150,7 @@
             // 
             this.sendButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.sendButton.Location = new System.Drawing.Point(555, 196);
-            this.sendButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sendButton.Margin = new System.Windows.Forms.Padding(4);
             this.sendButton.Name = "sendButton";
             this.sendButton.Size = new System.Drawing.Size(59, 25);
             this.sendButton.TabIndex = 2;
@@ -163,7 +163,7 @@
             this.chatInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chatInput.Location = new System.Drawing.Point(4, 196);
-            this.chatInput.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chatInput.Margin = new System.Windows.Forms.Padding(4);
             this.chatInput.Name = "chatInput";
             this.chatInput.Size = new System.Drawing.Size(541, 22);
             this.chatInput.TabIndex = 1;
@@ -175,7 +175,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chatOutput.Location = new System.Drawing.Point(4, 4);
-            this.chatOutput.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.chatOutput.Margin = new System.Windows.Forms.Padding(4);
             this.chatOutput.Multiline = true;
             this.chatOutput.Name = "chatOutput";
             this.chatOutput.ReadOnly = true;
@@ -200,7 +200,7 @@
             this.timePanel.Controls.Add(this.gmButton, 1, 3);
             this.timePanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.timePanel.Location = new System.Drawing.Point(895, 4);
-            this.timePanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.timePanel.Margin = new System.Windows.Forms.Padding(4);
             this.timePanel.Name = "timePanel";
             this.timePanel.RowCount = 4;
             this.timePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -265,7 +265,7 @@
             this.readyCheck.AutoCheck = false;
             this.readyCheck.Dock = System.Windows.Forms.DockStyle.Fill;
             this.readyCheck.Location = new System.Drawing.Point(168, 87);
-            this.readyCheck.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.readyCheck.Margin = new System.Windows.Forms.Padding(4);
             this.readyCheck.Name = "readyCheck";
             this.readyCheck.Size = new System.Drawing.Size(150, 29);
             this.readyCheck.TabIndex = 5;
@@ -282,6 +282,19 @@
             this.turnCountLabel.TabIndex = 6;
             this.turnCountLabel.Text = "Current turn\r\n420";
             // 
+            // gmButton
+            // 
+            this.gmButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gmButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gmButton.Location = new System.Drawing.Point(167, 126);
+            this.gmButton.Name = "gmButton";
+            this.gmButton.Size = new System.Drawing.Size(152, 32);
+            this.gmButton.TabIndex = 7;
+            this.gmButton.Text = "Gamemaster";
+            this.gmButton.UseVisualStyleBackColor = true;
+            this.gmButton.Visible = false;
+            this.gmButton.Click += new System.EventHandler(this.gmButton_Click);
+            // 
             // characterPanel
             // 
             this.characterPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -289,7 +302,7 @@
             this.characterPanel.Controls.Add(this.characterBox);
             this.characterPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.characterPanel.Location = new System.Drawing.Point(4, 176);
-            this.characterPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.characterPanel.Margin = new System.Windows.Forms.Padding(4);
             this.characterPanel.Name = "characterPanel";
             this.characterPanel.Size = new System.Drawing.Size(259, 224);
             this.characterPanel.TabIndex = 3;
@@ -315,7 +328,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.characterBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.characterBox.Location = new System.Drawing.Point(0, 36);
-            this.characterBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.characterBox.Margin = new System.Windows.Forms.Padding(4);
             this.characterBox.Multiline = true;
             this.characterBox.Name = "characterBox";
             this.characterBox.ReadOnly = true;
@@ -334,7 +347,7 @@
             this.roomPanel.Controls.Add(this.roomPeopleBox);
             this.roomPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.roomPanel.Location = new System.Drawing.Point(895, 176);
-            this.roomPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.roomPanel.Margin = new System.Windows.Forms.Padding(4);
             this.roomPanel.Name = "roomPanel";
             this.roomPanel.Size = new System.Drawing.Size(325, 224);
             this.roomPanel.TabIndex = 4;
@@ -373,7 +386,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.roomPeopleBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.roomPeopleBox.Location = new System.Drawing.Point(4, 62);
-            this.roomPeopleBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.roomPeopleBox.Margin = new System.Windows.Forms.Padding(4);
             this.roomPeopleBox.Multiline = true;
             this.roomPeopleBox.Name = "roomPeopleBox";
             this.roomPeopleBox.ReadOnly = true;
@@ -385,21 +398,8 @@
             // timer
             // 
             this.timer.Enabled = true;
-            this.timer.Interval = 1;
+            this.timer.Interval = 1000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
-            // gmButton
-            // 
-            this.gmButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gmButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gmButton.Location = new System.Drawing.Point(167, 126);
-            this.gmButton.Name = "gmButton";
-            this.gmButton.Size = new System.Drawing.Size(152, 32);
-            this.gmButton.TabIndex = 7;
-            this.gmButton.Text = "Gamemaster";
-            this.gmButton.UseVisualStyleBackColor = true;
-            this.gmButton.Visible = false;
-            this.gmButton.Click += new System.EventHandler(this.gmButton_Click);
             // 
             // MainForm
             // 
@@ -408,7 +408,7 @@
             this.ClientSize = new System.Drawing.Size(1224, 521);
             this.Controls.Add(this.centralPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(18, 518);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;

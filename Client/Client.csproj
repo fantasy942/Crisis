@@ -82,7 +82,6 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="View\CrisisContext.cs" />
-    <Compile Include="View\MessageAction.cs" />
     <EmbeddedResource Include="View\ConnectForm.resx">
       <DependentUpon>ConnectForm.cs</DependentUpon>
     </EmbeddedResource>

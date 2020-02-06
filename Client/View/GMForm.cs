@@ -7,16 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Crisis.Model;
 
 namespace Crisis.View
 {
     public partial class GMForm : Form
     {
-        private readonly MessageAction Send;
+        private readonly CrisisModel model;
 
-        public GMForm(MessageAction send)
+        public GMForm(CrisisModel model)
         {
-            Send = send;
+            this.model = model;
             InitializeComponent();
         }
 
