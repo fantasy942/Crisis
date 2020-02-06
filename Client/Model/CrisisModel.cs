@@ -9,17 +9,15 @@ namespace Crisis.Model
     public class CrisisModel
     {
         private readonly Telepathy.Client client = new Telepathy.Client();
-        private AuthMessage authMessage; //We store credentials in case we have to reconnect on our own.
         private TaskCompletionSource<ConnectAttemptResult> ConnectResult;
-        private TaskCompletionSource<Telepathy.Message> awaitMessage;
 
         public event Action<Message> MessageArrived;
+        public event Action Disconnected;
 
-        public Task<ConnectAttemptResult> Connect(string ip, int port, string username, string password)
+        public Task<ConnectAttemptResult> Connect(string ip, int port, Message startingMessage)
         {
             client.Connect(ip, port);
-            authMessage = new AuthMessage { Mail = username, Password = password };
-            _ = ListeningLoopAsync();
+            _ = ListeningLoopAsync(startingMessage);
             ConnectResult = new TaskCompletionSource<ConnectAttemptResult>();
             return ConnectResult.Task;
         }
@@ -34,7 +32,7 @@ namespace Crisis.Model
             client.Send(msg.Serialize());
         }
 
-        private async Task ListeningLoopAsync()
+        private async Task ListeningLoopAsync(Message startingMessage)
         {
             bool disconnected = false;
             while (!disconnected)
@@ -46,8 +44,10 @@ namespace Crisis.Model
                         switch (msg.eventType)
                         {
                             case Telepathy.EventType.Connected:
-                                //We have finally connected. Tell the server who we are.
-                                client.Send(authMessage.Serialize());
+                                if (startingMessage != null)
+                                {
+                                    Send(startingMessage);
+                                }
                                 break;
                             case Telepathy.EventType.Data:
                                 if (Message.TryInfer(msg.data, out Message inferred))
@@ -58,6 +58,7 @@ namespace Crisis.Model
                             case Telepathy.EventType.Disconnected:
                                 ConnectResult.TrySetResult(ConnectAttemptResult.GenericFail);
                                 disconnected = true;
+                                Disconnected?.Invoke();
                                 break;
                         }
                     }
