@@ -1,4 +1,5 @@
 ﻿using Crisis.Network;
+using System.Threading;
 
 namespace Crisis
 {
@@ -7,10 +8,7 @@ namespace Crisis
         static void Main(string[] args)
         {
             Server.Start();
-            while (true)
-            {
-
-            }
+            Thread.Sleep(Timeout.Infinite);
         }
     }
 }

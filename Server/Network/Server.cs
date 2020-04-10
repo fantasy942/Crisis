@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using Crisis.Messages;
+using System.Threading;
 
 namespace Crisis.Network
 {
@@ -54,10 +55,14 @@ namespace Crisis.Network
                                 }
                                 break;
                             case Telepathy.EventType.Disconnected:
-                                clients[msg.connectionId].Disconnect();
+                                if (clients.TryRemove(msg.connectionId, out Client client))
+                                {
+                                    client.Disconnect();
+                                }
                                 break;
                         }
                     }
+                    Thread.Sleep(1);
                 }
                 catch
                 {
