@@ -1,7 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Crisis.Model;
-using Crisis.Messages;
-using System;
 
 namespace Crisis.View
 {

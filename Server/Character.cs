@@ -11,6 +11,7 @@ namespace Crisis
         public static IReadOnlyList<Character> Characters => characters;
 
         public string Name { get; set; }
+        public Faction Faction { get; set; }
 
         public Client Client { get; set; }
         

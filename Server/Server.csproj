@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
+    <Compile Include="Faction.cs" />
     <Compile Include="Network\Server.cs" />
     <Compile Include="Network\Client.cs" />
     <Compile Include="Character.cs" />

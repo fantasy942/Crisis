@@ -14,6 +14,7 @@ namespace Crisis.Network
         public bool Authed { get; private set; }
         public bool Connected { get; private set; } = true;
         public Character Character { get; private set; }
+        public bool IsGm { get; private set; }
 
         public Client(int id)
         {
@@ -52,6 +53,10 @@ namespace Crisis.Network
             if (msg is SpeechMessage speechmsg)
             {
                 Character.Speak(speechmsg.Text);
+            }
+            else if (IsGm)
+            {
+
             }
         }
 
