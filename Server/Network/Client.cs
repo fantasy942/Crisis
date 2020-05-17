@@ -2,12 +2,13 @@
 using Crisis.Messages;
 using Crisis.Messages.Client;
 using Crisis.Messages.Server;
+using Hyalus;
 
 namespace Crisis.Network
 {
     class Client : IClientVisitor
     {
-        public int ID { get; }
+        public Connection<Message> Connection { get; }
         /// <summary>
         /// While the client is not authed it can only receive auth and register messages, the rest will be dropped.
         /// </summary>
@@ -16,9 +17,9 @@ namespace Crisis.Network
         public Character Character { get; private set; }
         public bool IsGm { get; private set; } = false;
 
-        public Client(int id)
+        public Client(Connection<Message> connection)
         {
-            ID = id;
+            Connection = connection;
         }
 
         public void Disconnect()
@@ -34,12 +35,12 @@ namespace Crisis.Network
                 Character.Client = null;
                 Character = null;
             }
-            Server.Disconnect(this);
+            Connection.Disconnect();
         }
 
-        public void Send(Message msg)
+        public void Send(ServerMessage msg)
         {
-            Server.Send(this, msg);
+            Connection.Send(msg);
         }
 
         public void Receive(ClientMessage msg)

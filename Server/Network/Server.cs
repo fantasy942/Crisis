@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using Crisis.Messages;
 using System.Threading;
 using Crisis.Messages.Client;
+using System.Configuration;
+using System.Runtime.Remoting.Channels;
 
 namespace Crisis.Network
 {
@@ -12,63 +14,33 @@ namespace Crisis.Network
     /// </summary>
     static class Server
     {
-        private static readonly Telepathy.Server server = new Telepathy.Server();
-
-        private static readonly ConcurrentDictionary<int, Client> clients = new ConcurrentDictionary<int, Client>();
-        public static IReadOnlyDictionary<int, Client> Clients => clients;
+        private static readonly Hyalus.Server<Message> server = new Hyalus.Server<Message>(new MessageCommunicator());
+        private static readonly Dictionary<Hyalus.Connection<Message>, Client> clients = new Dictionary<Hyalus.Connection<Message>, Client>();
 
         public static void Start()
         {
             server.Start(Configuration.Port);
-            Task.Run(DequeueLoop);
-        }
-
-        public static void Send(Client destination, Message msg)
-        {
-            server.Send(destination.ID, msg.Serialize());
-        }
-
-        public static void Disconnect(Client client)
-        {
-            server.Disconnect(client.ID);
-            clients.TryRemove(client.ID, out Client _);
+            _ = MessageLoop();
+            _ = ConnectionLoop();
         }
 
         public static void Stop() => server.Stop();
 
-        private static void DequeueLoop()
+        private static async Task MessageLoop()
         {
-            while (server.Active)
+            while (server.Connected)
             {
-                try
-                {
-                    while (server.GetNextMessage(out Telepathy.Message msg))
-                    {
-                        switch (msg.eventType)
-                        {
-                            case Telepathy.EventType.Connected:
-                                clients.TryAdd(msg.connectionId, new Client(msg.connectionId));
-                                break;
-                            case Telepathy.EventType.Data:
-                                if (Message.TryInfer(msg.data, out ClientMessage inferred))
-                                {
-                                    clients[msg.connectionId].Receive(inferred);
-                                }
-                                break;
-                            case Telepathy.EventType.Disconnected:
-                                if (clients.TryRemove(msg.connectionId, out Client client))
-                                {
-                                    client.Disconnect();
-                                }
-                                break;
-                        }
-                    }
-                    Thread.Sleep(1);
-                }
-                catch
-                {
+                var msg = await server.NextMessageAsync();
+                clients[msg.Source].Receive((ClientMessage)msg.Message);
+            }
+        }
 
-                }
+        private static async Task ConnectionLoop()
+        {
+            while (server.Connected)
+            {
+                var conn = await server.NextConnectionAsync();
+                clients.Add(conn, new Client(conn));
             }
         }
 

@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Crisis.Messages;
 using Crisis.Messages.Client;
 using Crisis.Messages.Server;
-using Telepathy;
+using Hyalus;
 
 namespace Crisis.Model
 {
     public class CrisisModel : IServerVisitor
     {
-        private readonly Telepathy.Client client = new Telepathy.Client();
-        private TaskCompletionSource<ConnectAttemptResult> ConnectResult;
+        private readonly Client<Message> client = new Client<Message>(new MessageCommunicator());
+
+        private bool lastAuthSucceeded = false;
 
         public delegate void HearDelegate(string name, string rank, string text, DateTime time);
         public delegate void TurnDelegate(DateTime time, DateTime turnend, int turn);
@@ -17,14 +19,26 @@ namespace Crisis.Model
         public event HearDelegate OnHear;
         public event Action<bool> OnGmChanged;
         public event TurnDelegate OnTimeTurn;
-        public event Action Disconnected;
 
-        public Task<ConnectAttemptResult> Connect(string ip, int port, ClientMessage startingMessage)
+        public async Task<ConnectAttemptResult> Connect(string ip, int port, ClientMessage startingMessage)
         {
-            client.Connect(ip, port);
-            _ = ListeningLoopAsync(startingMessage);
-            ConnectResult = new TaskCompletionSource<ConnectAttemptResult>();
-            return ConnectResult.Task;
+            await client.Connect(ip, port);
+            if (client.Connected)
+            {
+                client.Send(startingMessage);
+                var response = (ServerMessage)await client.NextMessageAsync();
+                response.Visit(this);
+                if (lastAuthSucceeded)
+                {
+                    _ = ListeningLoopAsync();
+                    return ConnectAttemptResult.Ok;
+                }
+                return ConnectAttemptResult.AuthFail;
+            }
+            else
+            {
+                return ConnectAttemptResult.GenericFail;
+            }
         }
 
         public void Disconnect()
@@ -34,58 +48,27 @@ namespace Crisis.Model
 
         public void Send(ClientMessage msg)
         {
-            client.Send(msg.Serialize());
+            client.Send(msg);
         }
 
-        private async Task ListeningLoopAsync(ClientMessage startingMessage)
+        private async Task ListeningLoopAsync()
         {
             bool disconnected = false;
             while (!disconnected)
             {
-                try
-                {
-                    while (client.GetNextMessage(out Telepathy.Message msg))
-                    {
-                        switch (msg.eventType)
-                        {
-                            case EventType.Connected:
-                                if (startingMessage != null)
-                                {
-                                    Send(startingMessage);
-                                }
-                                break;
-                            case EventType.Data:
-                                if (Messages.Message.TryInfer(msg.data, out ServerMessage inferred))
-                                {
-                                    Receive(inferred);
-                                }
-                                break;
-                            case EventType.Disconnected:
-                                ConnectResult.TrySetResult(ConnectAttemptResult.GenericFail);
-                                disconnected = true;
-                                Disconnected?.Invoke();
-                                break;
-                        }
-                    }
-                    await Task.Delay(1);
-                }
-                catch { }
+                var msg = (ServerMessage)await client.NextMessageAsync();
+                msg.Visit(this);
             }
-        }
-
-        private void Receive(ServerMessage msg)
-        {
-            msg.Visit(this);
         }
 
         public void VisitAuthConfirm(AuthConfirmMessage msg)
         {
-            ConnectResult.TrySetResult(ConnectAttemptResult.Ok);
+            lastAuthSucceeded = true;
         }
 
         public void VisitAuthDeny(AuthDenyMessage msg)
         {
-            ConnectResult.TrySetResult(ConnectAttemptResult.AuthFail);
+            lastAuthSucceeded = false;
         }
 
         public void VisitGMChanged(GMChangedMessage msg)
