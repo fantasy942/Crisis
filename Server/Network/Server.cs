@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using Crisis.Messages;
 using System.Threading;
+using Crisis.Messages.Client;
 
 namespace Crisis.Network
 {
@@ -49,7 +50,7 @@ namespace Crisis.Network
                                 clients.TryAdd(msg.connectionId, new Client(msg.connectionId));
                                 break;
                             case Telepathy.EventType.Data:
-                                if (Message.TryInfer(msg.data, out Message inferred))
+                                if (Message.TryInfer(msg.data, out ClientMessage inferred))
                                 {
                                     clients[msg.connectionId].Receive(inferred);
                                 }

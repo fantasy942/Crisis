@@ -1,19 +1,25 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Crisis.Messages;
+using Crisis.Messages.Client;
 using Crisis.Messages.Server;
+using Telepathy;
 
 namespace Crisis.Model
 {
-    public class CrisisModel
+    public class CrisisModel : IServerVisitor
     {
         private readonly Telepathy.Client client = new Telepathy.Client();
         private TaskCompletionSource<ConnectAttemptResult> ConnectResult;
 
-        public event Action<Message> MessageArrived;
+        public delegate void HearDelegate(string name, string rank, string text, DateTime time);
+        public delegate void TurnDelegate(DateTime time, DateTime turnend, int turn);
+
+        public event HearDelegate OnHear;
+        public event Action<bool> OnGmChanged;
+        public event TurnDelegate OnTimeTurn;
         public event Action Disconnected;
 
-        public Task<ConnectAttemptResult> Connect(string ip, int port, Message startingMessage)
+        public Task<ConnectAttemptResult> Connect(string ip, int port, ClientMessage startingMessage)
         {
             client.Connect(ip, port);
             _ = ListeningLoopAsync(startingMessage);
@@ -26,12 +32,12 @@ namespace Crisis.Model
             client.Disconnect();
         }
 
-        public void Send(Message msg)
+        public void Send(ClientMessage msg)
         {
             client.Send(msg.Serialize());
         }
 
-        private async Task ListeningLoopAsync(Message startingMessage)
+        private async Task ListeningLoopAsync(ClientMessage startingMessage)
         {
             bool disconnected = false;
             while (!disconnected)
@@ -42,19 +48,19 @@ namespace Crisis.Model
                     {
                         switch (msg.eventType)
                         {
-                            case Telepathy.EventType.Connected:
+                            case EventType.Connected:
                                 if (startingMessage != null)
                                 {
                                     Send(startingMessage);
                                 }
                                 break;
-                            case Telepathy.EventType.Data:
-                                if (Message.TryInfer(msg.data, out Message inferred))
+                            case EventType.Data:
+                                if (Messages.Message.TryInfer(msg.data, out ServerMessage inferred))
                                 {
                                     Receive(inferred);
                                 }
                                 break;
-                            case Telepathy.EventType.Disconnected:
+                            case EventType.Disconnected:
                                 ConnectResult.TrySetResult(ConnectAttemptResult.GenericFail);
                                 disconnected = true;
                                 Disconnected?.Invoke();
@@ -67,18 +73,39 @@ namespace Crisis.Model
             }
         }
 
-        private void Receive(Message msg)
+        private void Receive(ServerMessage msg)
         {
-            if (msg is AuthDenyMessage)
-            {
-                ConnectResult.TrySetResult(ConnectAttemptResult.AuthFail);
-            }
-            else if (msg is AuthConfirmMessage)
-            {
-                ConnectResult.TrySetResult(ConnectAttemptResult.Ok);
-            }
+            msg.Visit(this);
+        }
 
-            MessageArrived?.Invoke(msg);
+        public void VisitAuthConfirm(AuthConfirmMessage msg)
+        {
+            ConnectResult.TrySetResult(ConnectAttemptResult.Ok);
+        }
+
+        public void VisitAuthDeny(AuthDenyMessage msg)
+        {
+            ConnectResult.TrySetResult(ConnectAttemptResult.AuthFail);
+        }
+
+        public void VisitGMChanged(GMChangedMessage msg)
+        {
+            OnGmChanged?.Invoke(msg.IsGM);
+        }
+
+        public void VisitHear(HearMessage msg)
+        {
+            OnHear?.Invoke(msg.Name, msg.Rank, msg.Text, msg.Time);
+        }
+
+        public void VisitRegisterResponse(RegisterResponeMessage msg)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void VisitTimeTurn(TimeTurnMessage msg)
+        {
+            OnTimeTurn?.Invoke(msg.Time, msg.TurnEnd, msg.Turn);
         }
     }
 }

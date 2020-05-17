@@ -19,11 +19,11 @@ namespace Crisis.Messages
         /// <summary>
         /// Attempts to infer the message type from bytes.
         /// </summary>
-        public static bool TryInfer(byte[] input, out Message msg)
+        public static bool TryInfer<T>(byte[] input, out T msg) where T : Message
         {
             try
             {
-                msg = (Message)formatter.Deserialize(new MemoryStream(input));
+                msg = (T)formatter.Deserialize(new MemoryStream(input));
                 return true;
             }
             catch
