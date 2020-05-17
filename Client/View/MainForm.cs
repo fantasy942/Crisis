@@ -2,8 +2,6 @@
 using System.Windows.Forms;
 using Crisis.Model;
 using Crisis.Messages.Client;
-using Crisis.Messages.Server;
-using System.Drawing.Text;
 
 namespace Crisis.View
 {
