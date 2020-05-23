@@ -22,7 +22,7 @@ namespace Crisis.Model
 
         public async Task<ConnectAttemptResult> Connect(string ip, int port, ClientMessage startingMessage)
         {
-            await client.Connect(ip, port);
+            await client.ConnectAsync(ip, port);
             if (client.Connected)
             {
                 client.Send(startingMessage);
