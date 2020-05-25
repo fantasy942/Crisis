@@ -1,17 +1,12 @@
-﻿using Crisis.Model;
-using System;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Crisis.View
 {
     public partial class LoginForm : Form
     {
-        private readonly CrisisModel model;
-
-        public string Username => emailBox.Text;
-        public string Password => passwordBox.Text;
-
-        public event Action LoginPressed;
+        private TaskCompletionSource<(string name, string pwd)> loginPressed;
 
         public string Error
         {
@@ -19,16 +14,21 @@ namespace Crisis.View
             set => errorStatus.Text = value;
         }
 
-        public LoginForm(CrisisModel model)
+        public LoginForm()
         {
-            this.model = model;
             InitializeComponent();
             Error = string.Empty;
         }
 
+        public async Task<(string username, string password)> LoginAsync()
+        {
+            loginPressed = new TaskCompletionSource<(string, string)>();
+            return await loginPressed.Task;
+        }
+
         private void login_Click(object sender, EventArgs e)
         {
-            LoginPressed?.Invoke();
+            loginPressed?.SetResult((emailBox.Text, passwordBox.Text));
         }
     }
 }

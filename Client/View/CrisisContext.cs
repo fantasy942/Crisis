@@ -7,13 +7,12 @@ namespace Crisis.View
     {
         private readonly CrisisModel model = new CrisisModel();
 
-        private readonly LoginForm loginForm;
+        private readonly LoginForm loginForm = new LoginForm();
         private readonly ConnectForm connectForm = new ConnectForm();
         private readonly MainForm mainForm;
 
         public CrisisContext()
         {
-            loginForm = new LoginForm(model);
             mainForm = new MainForm(model);
 
             _ = DoAsync();
@@ -30,11 +29,7 @@ namespace Crisis.View
                 connectForm.Hide();
                 mainForm.Hide();
 
-                var AwaitLogin = new TaskCompletionSource<object>();
-                void local() => AwaitLogin.SetResult(null);
-                loginForm.LoginPressed += local;
-                await AwaitLogin.Task;
-                loginForm.LoginPressed -= local;
+                var (username, password) = await loginForm.LoginAsync();
 
                 //Order matters, if we close loginForm first then the whole application will shut itself down
                 MainForm = connectForm;
@@ -42,7 +37,7 @@ namespace Crisis.View
                 connectForm.Show();
 
                 //client.Connect("192.223.30.122", 4242);
-                var result = await model.Connect("localhost", 4242, new Messages.Client.AuthMessage { Mail = loginForm.Username, Password = loginForm.Password });
+                var result = await model.Connect("localhost", 4242, new Messages.Client.AuthMessage { Mail = username, Password = password });
 
                 if (result == ConnectAttemptResult.GenericFail)
                 {
