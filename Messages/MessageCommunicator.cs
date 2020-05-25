@@ -1,8 +1,6 @@
 ﻿using Crisis.Messages;
 using Hyalus;
-using System;
 using System.IO;
-using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Crisis

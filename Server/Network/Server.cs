@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Crisis.Messages;
 using Crisis.Messages.Client;
+using Hyalus;
 
 namespace Crisis.Network
 {
@@ -36,9 +37,14 @@ namespace Crisis.Network
             while (server.Connected)
             {
                 var conn = await server.NextConnectionAsync();
-                clients.Add(conn, new Client(conn));
+                var client = new Client(conn, Disconnect);
+                clients.Add(conn, client);
             }
         }
 
+        private static void Disconnect(Connection<Message> conn)
+        {
+            clients.Remove(conn);
+        }
     }
 }

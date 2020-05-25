@@ -9,6 +9,9 @@ namespace Crisis.Network
     class Client : IClientVisitor
     {
         private readonly Connection<Message> connection;
+
+        private readonly Action<Connection<Message>> onDisconnect;
+
         /// <summary>
         /// While the client is not authed it can only receive auth and register messages, the rest will be dropped.
         /// </summary>
@@ -17,9 +20,10 @@ namespace Crisis.Network
         public Character Character { get; private set; }
         public bool IsGm { get; private set; } = false;
 
-        public Client(Connection<Message> connection)
+        public Client(Connection<Message> connection, Action<Connection<Message>> onDisconnect)
         {
             this.connection = connection;
+            this.onDisconnect = onDisconnect;
         }
 
         public void Disconnect()
@@ -36,6 +40,7 @@ namespace Crisis.Network
                 Character = null;
             }
             connection.Disconnect();
+            onDisconnect(connection);
         }
 
         public void Send(params ServerMessage[] msg)
