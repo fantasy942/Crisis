@@ -6,9 +6,6 @@ using Hyalus;
 
 namespace Crisis.Network
 {
-    /// <summary>
-    /// Most interaction should happen through Clients. Use this class sparingly.
-    /// </summary>
     static class Server
     {
         private static readonly Server<Message> server = new Server<Message>(new MessageCommunicator());
