@@ -11,8 +11,8 @@ namespace Crisis.Network
     /// </summary>
     static class Server
     {
-        private static readonly Hyalus.Server<Message> server = new Hyalus.Server<Message>(new MessageCommunicator());
-        private static readonly Dictionary<Hyalus.Connection<Message>, Client> clients = new Dictionary<Hyalus.Connection<Message>, Client>();
+        private static readonly Server<Message> server = new Server<Message>(new MessageCommunicator());
+        private static readonly Dictionary<Connection<Message>, Client> clients = new Dictionary<Connection<Message>, Client>();
 
         public static void Start()
         {
