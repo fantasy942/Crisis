@@ -1,4 +1,5 @@
 ﻿using Crisis.Messages.Server;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,7 +23,7 @@ namespace Crisis
                 item.Client?.Send(new RoomMessage
                 {
                     Name = Name,
-                    People = characters.Select(x => x.Name).ToArray() ?? new string[0]
+                    People = characters.Select(x => x.Name).ToArray() ?? Array.Empty<string>()
                 });
             }
         }
