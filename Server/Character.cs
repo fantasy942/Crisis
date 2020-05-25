@@ -14,6 +14,7 @@ namespace Crisis
         public Faction Faction { get; set; }
 
         public Client Client { get; set; }
+        public bool Awake => Client != null && Client.Connected;
         
         public Character()
         {

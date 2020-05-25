@@ -36,11 +36,11 @@
     <ApplicationManifest>client.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HyalusClient, Version=0.1.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HyalusClient.0.1.5\lib\netstandard2.0\HyalusClient.dll</HintPath>
+    <Reference Include="HyalusClient, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HyalusClient.0.2.0\lib\netstandard2.0\HyalusClient.dll</HintPath>
     </Reference>
-    <Reference Include="HyalusCommon, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\HyalusCommon.0.1.0\lib\netstandard2.0\HyalusCommon.dll</HintPath>
+    <Reference Include="HyalusCommon, Version=0.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\HyalusCommon.0.2.0\lib\netstandard2.0\HyalusCommon.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -8,7 +8,7 @@ namespace Crisis.Network
 {
     class Client : IClientVisitor
     {
-        public Connection<Message> Connection { get; }
+        private readonly Connection<Message> connection;
         /// <summary>
         /// While the client is not authed it can only receive auth and register messages, the rest will be dropped.
         /// </summary>
@@ -19,7 +19,7 @@ namespace Crisis.Network
 
         public Client(Connection<Message> connection)
         {
-            Connection = connection;
+            this.connection = connection;
         }
 
         public void Disconnect()
@@ -35,12 +35,12 @@ namespace Crisis.Network
                 Character.Client = null;
                 Character = null;
             }
-            Connection.Disconnect();
+            connection.Disconnect();
         }
 
-        public void Send(ServerMessage msg)
+        public void Send(params ServerMessage[] msg)
         {
-            Connection.Send(msg);
+            connection.Send(msg);
         }
 
         public void Receive(ClientMessage msg)
@@ -61,9 +61,11 @@ namespace Crisis.Network
                 Client = this,
                 Name = msg.Mail
             };
-            Send(new AuthConfirmMessage());
-            Send(new GMChangedMessage { IsGM = true });
-            Send(new TimeTurnMessage { Time = DateTime.UtcNow, TurnEnd = DateTime.UtcNow.AddHours(1) });
+            Send(
+                new AuthConfirmMessage(),
+                new GMChangedMessage { IsGM = true },
+                new TimeTurnMessage { Time = DateTime.UtcNow, TurnEnd = DateTime.UtcNow.AddHours(1) }
+                );
             Authed = true;
         }
 

@@ -11,16 +11,14 @@ namespace Crisis
     {
         private readonly BinaryFormatter formatter = new BinaryFormatter();
 
-        public override Message Receive(NetworkStream source)
+        public override Message Deserialize(Stream source)
         {
             return (Message)formatter.Deserialize(source);
         }
 
-        public override void Send(NetworkStream destination, Message message)
+        public override void Serialize(Stream destination, Message message)
         {
-            var mem = new MemoryStream();
-            formatter.Serialize(mem, message);
-            mem.WriteTo(destination);
+            formatter.Serialize(destination, message);
         }
     }
 }
