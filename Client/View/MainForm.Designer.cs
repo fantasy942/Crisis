@@ -318,7 +318,7 @@
             this.characterLabel.Name = "characterLabel";
             this.characterLabel.Size = new System.Drawing.Size(258, 33);
             this.characterLabel.TabIndex = 3;
-            this.characterLabel.Text = "John Doe";
+            this.characterLabel.Text = "Character Name";
             this.characterLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // characterBox
@@ -335,8 +335,7 @@
             this.characterBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.characterBox.Size = new System.Drawing.Size(258, 187);
             this.characterBox.TabIndex = 2;
-            this.characterBox.Text = "RANK\r\nClown\r\n\r\nBRANCH\r\nCircus\r\n\r\nFACTION\r\nInternational Alliance of Very Funny Ci" +
-    "rcuses Worldwide";
+            this.characterBox.Text = "RANK\r\nERROR\r\n\r\nBRANCH\r\nERROR\r\n\r\nFACTION\r\nERROR";
             this.characterBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // roomPanel
@@ -362,7 +361,7 @@
             this.populationLabel.Name = "populationLabel";
             this.populationLabel.Size = new System.Drawing.Size(308, 22);
             this.populationLabel.TabIndex = 4;
-            this.populationLabel.Text = "People: 4";
+            this.populationLabel.Text = "People: ???";
             this.populationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // roomLabel
@@ -376,7 +375,7 @@
             this.roomLabel.Name = "roomLabel";
             this.roomLabel.Size = new System.Drawing.Size(324, 33);
             this.roomLabel.TabIndex = 3;
-            this.roomLabel.Text = "Circus Office";
+            this.roomLabel.Text = "Room Name";
             this.roomLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // roomPeopleBox
@@ -393,7 +392,7 @@
             this.roomPeopleBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.roomPeopleBox.Size = new System.Drawing.Size(312, 156);
             this.roomPeopleBox.TabIndex = 2;
-            this.roomPeopleBox.Text = "John Doe\r\nBob the Builder\r\nDonald Trump\r\nHe-Who-Honketh";
+            this.roomPeopleBox.Text = "Empty";
             // 
             // timer
             // 

@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Crisis.Model;
 using Crisis.Messages.Client;
+using System.Linq;
 
 namespace Crisis.View
 {
@@ -25,6 +26,7 @@ namespace Crisis.View
         private void RegisterModelEvents()
         {
             model.OnHear += (name, rank, text, time) => chatOutput.AppendText($"{rank} {name} | {time}{Environment.NewLine}{text}{Environment.NewLine}");
+            
             model.OnGmChanged += x =>
             {
                 gmButton.Visible = x;
@@ -33,12 +35,35 @@ namespace Crisis.View
                     gmForm.Hide();
                 }
             };
+
             model.OnTimeTurn += (time, turnend, turn) =>
             {
                 serverTime = time;
                 doomsdayTime = turnend;
                 turnCountLabel.Text = $"Current turn{Environment.NewLine}{turn}";
                 turnTimeLabel.Text = $"Turn ends at{Environment.NewLine}{turnend:HH:mm:ss}";
+            };
+
+            model.OnCharacterChanged += (name, rank, branch, faction) =>
+            {
+                characterLabel.Text = name;
+                characterBox.Text = $"RANK{Environment.NewLine}{rank}{Environment.NewLine}{Environment.NewLine}" +
+                $"BRANCH{Environment.NewLine}{branch}{Environment.NewLine}{Environment.NewLine}" +
+                $"FACTION{Environment.NewLine}{faction}";
+            };
+
+            model.OnRoomChanged += (name, people) =>
+            {
+                roomLabel.Text = name;
+                populationLabel.Text = people.Length.ToString();
+                if (people.Length == 0)
+                {
+                    roomPeopleBox.Text = "Empty.";
+                }
+                else
+                {
+                    roomPeopleBox.Text = string.Join(Environment.NewLine, people);
+                }
             };
         }
 

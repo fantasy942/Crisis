@@ -15,10 +15,14 @@ namespace Crisis.Model
 
         public delegate void HearDelegate(string name, string rank, string text, DateTime time);
         public delegate void TurnDelegate(DateTime time, DateTime turnend, int turn);
+        public delegate void CharacterDelegate(string name, string rank, string branch, string faction);
+        public delegate void RoomDelegate(string name, string[] people);
 
         public event HearDelegate OnHear;
         public event Action<bool> OnGmChanged;
         public event TurnDelegate OnTimeTurn;
+        public event CharacterDelegate OnCharacterChanged;
+        public event RoomDelegate OnRoomChanged;
 
         public async Task<ConnectAttemptResult> Connect(string ip, int port, ClientMessage startingMessage)
         {
@@ -61,6 +65,7 @@ namespace Crisis.Model
             }
         }
 
+        #region Message handling
         public void VisitAuthConfirm(AuthConfirmMessage msg)
         {
             lastAuthSucceeded = true;
@@ -90,5 +95,16 @@ namespace Crisis.Model
         {
             OnTimeTurn?.Invoke(msg.Time, msg.TurnEnd, msg.Turn);
         }
+
+        public void VisitCharacter(CharacterMessage msg)
+        {
+            OnCharacterChanged?.Invoke(msg.Name, msg.Rank, msg.Branch, msg.Faction);
+        }
+
+        public void VisitRoom(RoomMessage msg)
+        {
+            OnRoomChanged.Invoke(msg.Name, msg.People);
+        }
+        #endregion
     }
 }

@@ -8,5 +8,7 @@
         void VisitHear(HearMessage msg);
         void VisitRegisterResponse(RegisterResponeMessage msg);
         void VisitTimeTurn(TimeTurnMessage msg);
+        void VisitCharacter(CharacterMessage msg);
+        void VisitRoom(RoomMessage msg);
     }
 }

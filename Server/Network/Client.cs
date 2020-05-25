@@ -61,16 +61,20 @@ namespace Crisis.Network
                 return;
             }
 
-            Character = new Character
+            Character = new Character(msg.Mail)
             {
-                Client = this,
-                Name = msg.Mail
+                Client = this
             };
+
             Send(
                 new AuthConfirmMessage(),
                 new GMChangedMessage { IsGM = true },
-                new TimeTurnMessage { Time = DateTime.UtcNow, TurnEnd = DateTime.UtcNow.AddHours(1) }
+                new TimeTurnMessage { Time = DateTime.UtcNow, TurnEnd = DateTime.UtcNow.AddHours(1) },
+                new CharacterMessage { Name = msg.Mail, Rank = Character.Rank.Name, Branch = "???", Faction = "None" }
                 );
+
+            Character.Room = Room.Lobby;
+
             Authed = true;
         }
 
