@@ -1,8 +1,21 @@
-﻿namespace Crisis
+﻿using System;
+
+namespace Crisis
 {
     class Rank
     {
-        public string Name { get; }
+        public event Action NameChanged;
+
+        private string name;
+        public string Name
+        {
+            get => name;
+            set
+            {
+                name = value;
+                NameChanged?.Invoke();
+            }
+        }
 
         public Rank(string name)
         {
