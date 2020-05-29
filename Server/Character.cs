@@ -24,6 +24,10 @@ namespace Crisis
                 room?.Leave(this);
                 room = value;
                 room?.Enter(this);
+                if (room == null)
+                {
+                    Client?.Send(new RoomMessage { Name = "Unknown", People = Array.Empty<string>() });
+                }
             }
         }
 

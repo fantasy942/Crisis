@@ -7,7 +7,16 @@ namespace Crisis
 {
     class Room
     {
-        public string Name { get; set; }
+        private string name;
+        public string Name
+        {
+            get => name;
+            set
+            {
+                name = value;
+                Update();
+            }
+        }
         public Faction Faction { get; set; }
 
         private readonly List<Character> characters = new List<Character>();
@@ -18,6 +27,17 @@ namespace Crisis
         public void Enter(Character character)
         {
             characters.Add(character);
+            Update();
+        }
+
+        public void Leave(Character character)
+        {
+            characters.Remove(character);
+            Update();
+        }
+
+        private void Update()
+        {
             foreach (var item in characters)
             {
                 item.Client?.Send(new RoomMessage
@@ -26,11 +46,6 @@ namespace Crisis
                     People = characters.Select(x => x.Name).ToArray() ?? Array.Empty<string>()
                 });
             }
-        }
-
-        public void Leave(Character character)
-        {
-            characters.Remove(character);
         }
     }
 }
