@@ -25,12 +25,11 @@ namespace Crisis.View
 
         private void RegisterModelEvents()
         {
-            model.OnHear += (name, rank, text, time) => chatOutput.AppendText($"{rank} {name} | {time}{Environment.NewLine}{text}{Environment.NewLine}");
+            model.OnHear += (name, rank, text, time) => ChatOutput.AppendText($"{rank} {name} | {time}{Environment.NewLine}{text}{Environment.NewLine}");
             
             model.OnGmChanged += x =>
             {
-                gmButton.Visible = x;
-                if (!x)
+                if (!(GMButton.Visible = x))
                 {
                     gmForm.Hide();
                 }
@@ -40,58 +39,63 @@ namespace Crisis.View
             {
                 serverTime = time;
                 doomsdayTime = turnend;
-                turnCountLabel.Text = $"Current turn{Environment.NewLine}{turn}";
-                turnTimeLabel.Text = $"Turn ends at{Environment.NewLine}{turnend:HH:mm:ss}";
+                TurnCountLabel.Text = $"Current turn{Environment.NewLine}{turn}";
+                TurnTimeLabel.Text = $"Turn ends at{Environment.NewLine}{turnend:HH:mm:ss}";
             };
 
             model.OnCharacterChanged += (name, rank, branch, faction) =>
             {
-                characterLabel.Text = name;
-                characterBox.Text = $"RANK{Environment.NewLine}{rank}{Environment.NewLine}{Environment.NewLine}" +
-                $"BRANCH{Environment.NewLine}{branch}{Environment.NewLine}{Environment.NewLine}" +
-                $"FACTION{Environment.NewLine}{faction}";
+                CharacterLabel.Text = name;
+                if (rank != null) RankLabel.Text = rank;
+                if (branch != null) BranchLabel.Text = branch;
+                if (faction != null) FactionLabel.Text = faction;
             };
 
-            model.OnRoomChanged += (name, people) =>
+            model.OnRoomChanged += (area, name, people) =>
             {
-                roomLabel.Text = name;
-                populationLabel.Text = people.Length.ToString();
-                if (people.Length == 0)
+                if (area != null) AreaLabel.Text = area;
+                if (name != null) RoomLabel.Text = name;
+                if (people != null)
                 {
-                    roomPeopleBox.Text = "Empty.";
+                    PopulationLabel.Text = people.Length.ToString();
+                    if (people.Length == 0)
+                    {
+                        RoomPeopleBox.Text = "Empty.";
+                    }
+                    else
+                    {
+                        RoomPeopleBox.Text = string.Join(Environment.NewLine, people);
+                    }
                 }
-                else
-                {
-                    roomPeopleBox.Text = string.Join(Environment.NewLine, people);
-                }
+                
             };
         }
 
-        private void sendButton_Click(object sender, EventArgs e)
+        private void SendButton_Click(object sender, EventArgs e)
         {
-            model.Send(new SpeechMessage { Text = chatInput.Text });
-            chatInput.Text = string.Empty;
+            model.Send(new SpeechMessage(ChatInput.Text));
+            ChatInput.Text = string.Empty;
         }
 
-        private void chatInput_KeyDown(object sender, KeyEventArgs e)
+        private void ChatInput_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
-                sendButton_Click(sender, e);
+                SendButton_Click(sender, e);
                 e.Handled = true;
                 e.SuppressKeyPress = true;
             }
         }
 
-        private void timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
-            serverTime = serverTime.AddMilliseconds(timer.Interval);
-            timeLabel.Text = $"Current time{Environment.NewLine}{serverTime:HH:mm:ss}";
+            serverTime = serverTime.AddMilliseconds(Timer.Interval);
+            TimeLabel.Text = $"Current time{Environment.NewLine}{serverTime:HH:mm:ss}";
             var timeLeftToDoomsday = doomsdayTime - serverTime;
-            doomsdayLabel.Text = $"Turn ends in{Environment.NewLine}{timeLeftToDoomsday:hh\\:mm\\:ss}";
+            DoomsdayLabel.Text = $"Turn ends in{Environment.NewLine}{timeLeftToDoomsday:hh\\:mm\\:ss}";
         }
 
-        private void gmButton_Click(object sender, EventArgs e)
+        private void GMButton_Click(object sender, EventArgs e)
         {
             gmForm.Show();
         }

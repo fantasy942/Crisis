@@ -5,10 +5,10 @@ namespace Crisis.Messages.Server
     [Serializable]
     public class CharacterMessage : ServerMessage
     {
-        public string Name;
-        public string Rank;
-        public string Branch;
-        public string Faction;
+        public string Name { get; set; }
+        public string Rank { get; set; }
+        public string Branch { get; set; }
+        public string Faction { get; set; }
 
         public override void Visit(IServerHandler visitor)
         {

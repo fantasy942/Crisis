@@ -16,7 +16,7 @@ namespace Crisis.Model
         public delegate void HearDelegate(string name, string rank, string text, DateTime time);
         public delegate void TurnDelegate(DateTime time, DateTime turnend, int turn);
         public delegate void CharacterDelegate(string name, string rank, string branch, string faction);
-        public delegate void RoomDelegate(string name, string[] people);
+        public delegate void RoomDelegate(string area, string name, string[] people);
 
         public event HearDelegate OnHear;
         public event Action<bool> OnGmChanged;
@@ -103,7 +103,7 @@ namespace Crisis.Model
 
         public void HandleRoom(RoomMessage msg)
         {
-            OnRoomChanged.Invoke(msg.Name, msg.People);
+            OnRoomChanged.Invoke(msg.Area, msg.Room, msg.People);
         }
         #endregion
     }

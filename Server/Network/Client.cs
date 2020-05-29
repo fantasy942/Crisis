@@ -68,8 +68,8 @@ namespace Crisis.Network
 
             Send(
                 new AuthConfirmMessage(),
-                new GMChangedMessage { IsGM = true },
-                new TimeTurnMessage { Time = DateTime.UtcNow, TurnEnd = DateTime.UtcNow.AddHours(1) },
+                new GMChangedMessage(true),
+                new TimeTurnMessage(DateTime.UtcNow, DateTime.UtcNow.AddHours(1), 42),
                 new CharacterMessage { Name = msg.Mail, Rank = Character.Rank.Name, Branch = "???", Faction = "None" }
                 );
 
@@ -80,7 +80,7 @@ namespace Crisis.Network
 
         public void HandleRegister(RegisterMessage msg)
         {
-            Send(new RegisterResponeMessage { Response = RegisterResponse.Ok }); //TODO: Get a db
+            Send(new RegisterResponeMessage(RegisterResponse.Ok)); //TODO: Get a db
         }
 
         public void HandleSpeech(SpeechMessage msg)

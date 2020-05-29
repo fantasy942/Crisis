@@ -14,37 +14,43 @@ namespace Crisis
             set
             {
                 name = value;
-                Update();
+                foreach (var item in characters)
+                {
+                    item.Client?.Send(RoomMessage.RoomRenamed(name));
+                }
             }
         }
         public Faction Faction { get; set; }
+        public Area Area { get; }
 
         private readonly List<Character> characters = new List<Character>();
         public IReadOnlyList<Character> Characters => characters;
 
-        public static Room Lobby { get; } = new Room { Name = "Lobby" };
+        public static Room Lobby { get; } = new Room(Area.Lobby) { Name = "Lobby" };
+
+        public Room(Area area)
+        {
+            Area = area;
+            area.Add(this);
+        }
 
         public void Enter(Character character)
         {
             characters.Add(character);
-            Update();
+            UpdatePeople();
         }
 
         public void Leave(Character character)
         {
             characters.Remove(character);
-            Update();
+            UpdatePeople();
         }
 
-        private void Update()
+        private void UpdatePeople()
         {
             foreach (var item in characters)
             {
-                item.Client?.Send(new RoomMessage
-                {
-                    Name = Name,
-                    People = characters.Select(x => x.Name).ToArray() ?? Array.Empty<string>()
-                });
+                item.Client?.Send(RoomMessage.PeopleChanged(characters.Select(x => x.Name).ToArray() ?? Array.Empty<string>()));
             }
         }
     }

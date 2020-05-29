@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Crisis.Messages.Server;
 using Crisis.Network;
 
@@ -17,7 +18,7 @@ namespace Crisis
             set
             {
                 name = value;
-                Update();
+                Client?.Send(new CharacterMessage { Name = name });
             }
         }
 
@@ -27,10 +28,9 @@ namespace Crisis
             get => rank;
             set
             {
-                if (rank != null) rank.NameChanged -= Update;
-                rank = value;
-                rank.NameChanged += Update;
-                Update();
+                rank.Remove(this);
+                rank = value ?? Rank.Default;
+                rank.Add(this);
             }
         }
 
@@ -45,9 +45,10 @@ namespace Crisis
                 room?.Leave(this);
                 room = value;
                 room?.Enter(this);
+                Client?.Send(RoomMessage.AreaChanged(room.Area.Name, room.Name, room.Characters.Select(x => x.name).ToArray()));
                 if (room == null)
                 {
-                    Client?.Send(new RoomMessage { Name = "Unknown", People = Array.Empty<string>() });
+                    Client?.Send(RoomMessage.AreaChanged("Nowhere", "Unknown", Array.Empty<string>()));
                 }
             }
         }
@@ -71,12 +72,7 @@ namespace Crisis
 
         public void Hear(string source, string text)
         {
-            Client?.Send(new HearMessage { Time = DateTime.Now, Rank = string.Empty , Name = source, Text = text });
-        }
-
-        private void Update()
-        {
-            Client?.Send(new CharacterMessage { Name = name, Rank = rank.Name, Branch = "???", Faction = "None" });
+            Client?.Send(new HearMessage(DateTime.Now, string.Empty, source, text));
         }
     }
 }

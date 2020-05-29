@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Area.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Faction.cs" />
     <Compile Include="Network\Server.cs" />

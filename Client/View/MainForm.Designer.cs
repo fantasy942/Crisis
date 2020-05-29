@@ -30,382 +30,479 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.centralPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.objectivesLabel = new System.Windows.Forms.Label();
-            this.goalsList = new System.Windows.Forms.CheckedListBox();
-            this.chatPanel = new System.Windows.Forms.Panel();
-            this.sendButton = new System.Windows.Forms.Button();
-            this.chatInput = new System.Windows.Forms.TextBox();
-            this.chatOutput = new System.Windows.Forms.TextBox();
-            this.timePanel = new System.Windows.Forms.TableLayoutPanel();
-            this.staffReadyLabel = new System.Windows.Forms.Label();
-            this.timeLabel = new System.Windows.Forms.Label();
-            this.doomsdayLabel = new System.Windows.Forms.Label();
-            this.turnTimeLabel = new System.Windows.Forms.Label();
-            this.adminReadyLabel = new System.Windows.Forms.Label();
-            this.readyCheck = new System.Windows.Forms.CheckBox();
-            this.turnCountLabel = new System.Windows.Forms.Label();
-            this.gmButton = new System.Windows.Forms.Button();
-            this.characterPanel = new System.Windows.Forms.Panel();
-            this.characterLabel = new System.Windows.Forms.Label();
-            this.characterBox = new System.Windows.Forms.TextBox();
-            this.roomPanel = new System.Windows.Forms.Panel();
-            this.populationLabel = new System.Windows.Forms.Label();
-            this.roomLabel = new System.Windows.Forms.Label();
-            this.roomPeopleBox = new System.Windows.Forms.TextBox();
-            this.timer = new System.Windows.Forms.Timer(this.components);
-            this.centralPanel.SuspendLayout();
-            this.panel1.SuspendLayout();
-            this.chatPanel.SuspendLayout();
-            this.timePanel.SuspendLayout();
-            this.characterPanel.SuspendLayout();
-            this.roomPanel.SuspendLayout();
+            this.CentralPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.ObjectivesPanel = new System.Windows.Forms.Panel();
+            this.ObjectivesLabel = new System.Windows.Forms.Label();
+            this.GoalsList = new System.Windows.Forms.CheckedListBox();
+            this.ChatPanel = new System.Windows.Forms.Panel();
+            this.SendButton = new System.Windows.Forms.Button();
+            this.ChatInput = new System.Windows.Forms.TextBox();
+            this.ChatOutput = new System.Windows.Forms.TextBox();
+            this.TimePanel = new System.Windows.Forms.TableLayoutPanel();
+            this.StaffReadyLabel = new System.Windows.Forms.Label();
+            this.TimeLabel = new System.Windows.Forms.Label();
+            this.DoomsdayLabel = new System.Windows.Forms.Label();
+            this.TurnTimeLabel = new System.Windows.Forms.Label();
+            this.AdminReadyLabel = new System.Windows.Forms.Label();
+            this.ReadyCheck = new System.Windows.Forms.CheckBox();
+            this.TurnCountLabel = new System.Windows.Forms.Label();
+            this.GMButton = new System.Windows.Forms.Button();
+            this.CharacterPanel = new System.Windows.Forms.Panel();
+            this.CharacterLabel = new System.Windows.Forms.Label();
+            this.RoomPanel = new System.Windows.Forms.Panel();
+            this.RoomLabel = new System.Windows.Forms.Label();
+            this.PopulationLabel = new System.Windows.Forms.Label();
+            this.AreaLabel = new System.Windows.Forms.Label();
+            this.RoomPeopleBox = new System.Windows.Forms.TextBox();
+            this.Timer = new System.Windows.Forms.Timer(this.components);
+            this.CharacterLayout = new System.Windows.Forms.TableLayoutPanel();
+            this.BranchDescLabel = new System.Windows.Forms.Label();
+            this.BranchLabel = new System.Windows.Forms.Label();
+            this.RankDescLabel = new System.Windows.Forms.Label();
+            this.RankLabel = new System.Windows.Forms.Label();
+            this.FactionDescLabel = new System.Windows.Forms.Label();
+            this.FactionLabel = new System.Windows.Forms.Label();
+            this.CentralPanel.SuspendLayout();
+            this.ObjectivesPanel.SuspendLayout();
+            this.ChatPanel.SuspendLayout();
+            this.TimePanel.SuspendLayout();
+            this.CharacterPanel.SuspendLayout();
+            this.RoomPanel.SuspendLayout();
+            this.CharacterLayout.SuspendLayout();
             this.SuspendLayout();
             // 
-            // centralPanel
+            // CentralPanel
             // 
-            this.centralPanel.ColumnCount = 3;
-            this.centralPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 267F));
-            this.centralPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.centralPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 333F));
-            this.centralPanel.Controls.Add(this.panel1, 0, 0);
-            this.centralPanel.Controls.Add(this.chatPanel, 1, 1);
-            this.centralPanel.Controls.Add(this.timePanel, 2, 0);
-            this.centralPanel.Controls.Add(this.characterPanel, 0, 1);
-            this.centralPanel.Controls.Add(this.roomPanel, 2, 1);
-            this.centralPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.centralPanel.Location = new System.Drawing.Point(0, 0);
-            this.centralPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.centralPanel.Name = "centralPanel";
-            this.centralPanel.RowCount = 3;
-            this.centralPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 172F));
-            this.centralPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 66.66666F));
-            this.centralPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.centralPanel.Size = new System.Drawing.Size(1224, 521);
-            this.centralPanel.TabIndex = 0;
+            this.CentralPanel.ColumnCount = 3;
+            this.CentralPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 267F));
+            this.CentralPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.CentralPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 333F));
+            this.CentralPanel.Controls.Add(this.ObjectivesPanel, 0, 0);
+            this.CentralPanel.Controls.Add(this.ChatPanel, 1, 1);
+            this.CentralPanel.Controls.Add(this.TimePanel, 2, 0);
+            this.CentralPanel.Controls.Add(this.CharacterPanel, 0, 1);
+            this.CentralPanel.Controls.Add(this.RoomPanel, 2, 1);
+            this.CentralPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CentralPanel.Location = new System.Drawing.Point(0, 0);
+            this.CentralPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.CentralPanel.Name = "CentralPanel";
+            this.CentralPanel.RowCount = 3;
+            this.CentralPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 172F));
+            this.CentralPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 66.66666F));
+            this.CentralPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.CentralPanel.Size = new System.Drawing.Size(1224, 597);
+            this.CentralPanel.TabIndex = 0;
             // 
-            // panel1
+            // ObjectivesPanel
             // 
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel1.Controls.Add(this.objectivesLabel);
-            this.panel1.Controls.Add(this.goalsList);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(4, 4);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(259, 164);
-            this.panel1.TabIndex = 6;
+            this.ObjectivesPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.ObjectivesPanel.Controls.Add(this.ObjectivesLabel);
+            this.ObjectivesPanel.Controls.Add(this.GoalsList);
+            this.ObjectivesPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ObjectivesPanel.Location = new System.Drawing.Point(4, 4);
+            this.ObjectivesPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.ObjectivesPanel.Name = "ObjectivesPanel";
+            this.ObjectivesPanel.Size = new System.Drawing.Size(259, 164);
+            this.ObjectivesPanel.TabIndex = 6;
             // 
-            // objectivesLabel
+            // ObjectivesLabel
             // 
-            this.objectivesLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.ObjectivesLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.objectivesLabel.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.objectivesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.objectivesLabel.Location = new System.Drawing.Point(0, 0);
-            this.objectivesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.objectivesLabel.Name = "objectivesLabel";
-            this.objectivesLabel.Size = new System.Drawing.Size(258, 33);
-            this.objectivesLabel.TabIndex = 3;
-            this.objectivesLabel.Text = "Objectives";
-            this.objectivesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.ObjectivesLabel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.ObjectivesLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ObjectivesLabel.Location = new System.Drawing.Point(0, 0);
+            this.ObjectivesLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ObjectivesLabel.Name = "ObjectivesLabel";
+            this.ObjectivesLabel.Size = new System.Drawing.Size(258, 33);
+            this.ObjectivesLabel.TabIndex = 3;
+            this.ObjectivesLabel.Text = "Objectives";
+            this.ObjectivesLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // goalsList
+            // GoalsList
             // 
-            this.goalsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.GoalsList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.goalsList.BackColor = System.Drawing.SystemColors.Control;
-            this.goalsList.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.goalsList.FormattingEnabled = true;
-            this.goalsList.HorizontalScrollbar = true;
-            this.goalsList.Items.AddRange(new object[] {
+            this.GoalsList.BackColor = System.Drawing.SystemColors.Control;
+            this.GoalsList.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.GoalsList.FormattingEnabled = true;
+            this.GoalsList.HorizontalScrollbar = true;
+            this.GoalsList.Items.AddRange(new object[] {
             "Personal: Find the Secretary General and throw a pie in his face.",
             "Branch: Get the keys of the clown car back.",
             "Faction: Lure children into the severs through grates."});
-            this.goalsList.Location = new System.Drawing.Point(4, 34);
-            this.goalsList.Margin = new System.Windows.Forms.Padding(4);
-            this.goalsList.Name = "goalsList";
-            this.goalsList.ScrollAlwaysVisible = true;
-            this.goalsList.SelectionMode = System.Windows.Forms.SelectionMode.None;
-            this.goalsList.Size = new System.Drawing.Size(254, 119);
-            this.goalsList.TabIndex = 5;
+            this.GoalsList.Location = new System.Drawing.Point(4, 34);
+            this.GoalsList.Margin = new System.Windows.Forms.Padding(4);
+            this.GoalsList.Name = "GoalsList";
+            this.GoalsList.ScrollAlwaysVisible = true;
+            this.GoalsList.SelectionMode = System.Windows.Forms.SelectionMode.None;
+            this.GoalsList.Size = new System.Drawing.Size(254, 119);
+            this.GoalsList.TabIndex = 5;
             // 
-            // chatPanel
+            // ChatPanel
             // 
-            this.chatPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ChatPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.chatPanel.Controls.Add(this.sendButton);
-            this.chatPanel.Controls.Add(this.chatInput);
-            this.chatPanel.Controls.Add(this.chatOutput);
-            this.chatPanel.Location = new System.Drawing.Point(271, 176);
-            this.chatPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.chatPanel.Name = "chatPanel";
-            this.chatPanel.Size = new System.Drawing.Size(616, 224);
-            this.chatPanel.TabIndex = 0;
+            this.ChatPanel.Controls.Add(this.SendButton);
+            this.ChatPanel.Controls.Add(this.ChatInput);
+            this.ChatPanel.Controls.Add(this.ChatOutput);
+            this.ChatPanel.Location = new System.Drawing.Point(271, 176);
+            this.ChatPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.ChatPanel.Name = "ChatPanel";
+            this.ChatPanel.Size = new System.Drawing.Size(616, 275);
+            this.ChatPanel.TabIndex = 0;
             // 
-            // sendButton
+            // SendButton
             // 
-            this.sendButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.sendButton.Location = new System.Drawing.Point(555, 196);
-            this.sendButton.Margin = new System.Windows.Forms.Padding(4);
-            this.sendButton.Name = "sendButton";
-            this.sendButton.Size = new System.Drawing.Size(59, 25);
-            this.sendButton.TabIndex = 2;
-            this.sendButton.Text = "Send";
-            this.sendButton.UseVisualStyleBackColor = true;
-            this.sendButton.Click += new System.EventHandler(this.sendButton_Click);
+            this.SendButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.SendButton.Location = new System.Drawing.Point(555, 247);
+            this.SendButton.Margin = new System.Windows.Forms.Padding(4);
+            this.SendButton.Name = "SendButton";
+            this.SendButton.Size = new System.Drawing.Size(59, 25);
+            this.SendButton.TabIndex = 2;
+            this.SendButton.Text = "Send";
+            this.SendButton.UseVisualStyleBackColor = true;
+            this.SendButton.Click += new System.EventHandler(this.SendButton_Click);
             // 
-            // chatInput
+            // ChatInput
             // 
-            this.chatInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.ChatInput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.chatInput.Location = new System.Drawing.Point(4, 196);
-            this.chatInput.Margin = new System.Windows.Forms.Padding(4);
-            this.chatInput.Name = "chatInput";
-            this.chatInput.Size = new System.Drawing.Size(541, 22);
-            this.chatInput.TabIndex = 1;
-            this.chatInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.chatInput_KeyDown);
+            this.ChatInput.Location = new System.Drawing.Point(4, 247);
+            this.ChatInput.Margin = new System.Windows.Forms.Padding(4);
+            this.ChatInput.Name = "ChatInput";
+            this.ChatInput.Size = new System.Drawing.Size(541, 22);
+            this.ChatInput.TabIndex = 1;
+            this.ChatInput.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ChatInput_KeyDown);
             // 
-            // chatOutput
+            // ChatOutput
             // 
-            this.chatOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.ChatOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.chatOutput.Location = new System.Drawing.Point(4, 4);
-            this.chatOutput.Margin = new System.Windows.Forms.Padding(4);
-            this.chatOutput.Multiline = true;
-            this.chatOutput.Name = "chatOutput";
-            this.chatOutput.ReadOnly = true;
-            this.chatOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.chatOutput.Size = new System.Drawing.Size(608, 184);
-            this.chatOutput.TabIndex = 0;
-            this.chatOutput.TabStop = false;
+            this.ChatOutput.Location = new System.Drawing.Point(4, 4);
+            this.ChatOutput.Margin = new System.Windows.Forms.Padding(4);
+            this.ChatOutput.Multiline = true;
+            this.ChatOutput.Name = "ChatOutput";
+            this.ChatOutput.ReadOnly = true;
+            this.ChatOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.ChatOutput.Size = new System.Drawing.Size(608, 235);
+            this.ChatOutput.TabIndex = 0;
+            this.ChatOutput.TabStop = false;
             // 
-            // timePanel
+            // TimePanel
             // 
-            this.timePanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble;
-            this.timePanel.ColumnCount = 2;
-            this.timePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.timePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.timePanel.Controls.Add(this.staffReadyLabel, 1, 1);
-            this.timePanel.Controls.Add(this.timeLabel, 0, 0);
-            this.timePanel.Controls.Add(this.doomsdayLabel, 0, 1);
-            this.timePanel.Controls.Add(this.turnTimeLabel, 0, 2);
-            this.timePanel.Controls.Add(this.adminReadyLabel, 1, 0);
-            this.timePanel.Controls.Add(this.readyCheck, 1, 2);
-            this.timePanel.Controls.Add(this.turnCountLabel, 0, 3);
-            this.timePanel.Controls.Add(this.gmButton, 1, 3);
-            this.timePanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timePanel.Location = new System.Drawing.Point(895, 4);
-            this.timePanel.Margin = new System.Windows.Forms.Padding(4);
-            this.timePanel.Name = "timePanel";
-            this.timePanel.RowCount = 4;
-            this.timePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.timePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.timePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.timePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.timePanel.Size = new System.Drawing.Size(325, 164);
-            this.timePanel.TabIndex = 1;
+            this.TimePanel.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble;
+            this.TimePanel.ColumnCount = 2;
+            this.TimePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.TimePanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.TimePanel.Controls.Add(this.StaffReadyLabel, 1, 1);
+            this.TimePanel.Controls.Add(this.TimeLabel, 0, 0);
+            this.TimePanel.Controls.Add(this.DoomsdayLabel, 0, 1);
+            this.TimePanel.Controls.Add(this.TurnTimeLabel, 0, 2);
+            this.TimePanel.Controls.Add(this.AdminReadyLabel, 1, 0);
+            this.TimePanel.Controls.Add(this.ReadyCheck, 1, 2);
+            this.TimePanel.Controls.Add(this.TurnCountLabel, 0, 3);
+            this.TimePanel.Controls.Add(this.GMButton, 1, 3);
+            this.TimePanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TimePanel.Location = new System.Drawing.Point(895, 4);
+            this.TimePanel.Margin = new System.Windows.Forms.Padding(4);
+            this.TimePanel.Name = "TimePanel";
+            this.TimePanel.RowCount = 4;
+            this.TimePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.TimePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.TimePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.TimePanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.TimePanel.Size = new System.Drawing.Size(325, 164);
+            this.TimePanel.TabIndex = 1;
             // 
-            // staffReadyLabel
+            // StaffReadyLabel
             // 
-            this.staffReadyLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.staffReadyLabel.Location = new System.Drawing.Point(168, 43);
-            this.staffReadyLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.staffReadyLabel.Name = "staffReadyLabel";
-            this.staffReadyLabel.Size = new System.Drawing.Size(150, 37);
-            this.staffReadyLabel.TabIndex = 4;
-            this.staffReadyLabel.Text = "Staff ready\r\n0/80%";
+            this.StaffReadyLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.StaffReadyLabel.Location = new System.Drawing.Point(168, 43);
+            this.StaffReadyLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.StaffReadyLabel.Name = "StaffReadyLabel";
+            this.StaffReadyLabel.Size = new System.Drawing.Size(150, 37);
+            this.StaffReadyLabel.TabIndex = 4;
+            this.StaffReadyLabel.Text = "Staff ready\r\n0/80%";
             // 
-            // timeLabel
+            // TimeLabel
             // 
-            this.timeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.timeLabel.Location = new System.Drawing.Point(7, 3);
-            this.timeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.timeLabel.Name = "timeLabel";
-            this.timeLabel.Size = new System.Drawing.Size(150, 37);
-            this.timeLabel.TabIndex = 0;
-            this.timeLabel.Text = "Current time\r\n00:00:00";
+            this.TimeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TimeLabel.Location = new System.Drawing.Point(7, 3);
+            this.TimeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.TimeLabel.Name = "TimeLabel";
+            this.TimeLabel.Size = new System.Drawing.Size(150, 37);
+            this.TimeLabel.TabIndex = 0;
+            this.TimeLabel.Text = "Current time\r\n00:00:00";
             // 
-            // doomsdayLabel
+            // DoomsdayLabel
             // 
-            this.doomsdayLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.doomsdayLabel.Location = new System.Drawing.Point(7, 43);
-            this.doomsdayLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.doomsdayLabel.Name = "doomsdayLabel";
-            this.doomsdayLabel.Size = new System.Drawing.Size(150, 37);
-            this.doomsdayLabel.TabIndex = 2;
-            this.doomsdayLabel.Text = "Turn ends in\r\n00:00:00\r\n";
+            this.DoomsdayLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.DoomsdayLabel.Location = new System.Drawing.Point(7, 43);
+            this.DoomsdayLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.DoomsdayLabel.Name = "DoomsdayLabel";
+            this.DoomsdayLabel.Size = new System.Drawing.Size(150, 37);
+            this.DoomsdayLabel.TabIndex = 2;
+            this.DoomsdayLabel.Text = "Turn ends in\r\n00:00:00\r\n";
             // 
-            // turnTimeLabel
+            // TurnTimeLabel
             // 
-            this.turnTimeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.turnTimeLabel.Location = new System.Drawing.Point(7, 83);
-            this.turnTimeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.turnTimeLabel.Name = "turnTimeLabel";
-            this.turnTimeLabel.Size = new System.Drawing.Size(150, 37);
-            this.turnTimeLabel.TabIndex = 1;
-            this.turnTimeLabel.Text = "Turn ends at\r\n00:00:00";
+            this.TurnTimeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TurnTimeLabel.Location = new System.Drawing.Point(7, 83);
+            this.TurnTimeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.TurnTimeLabel.Name = "TurnTimeLabel";
+            this.TurnTimeLabel.Size = new System.Drawing.Size(150, 37);
+            this.TurnTimeLabel.TabIndex = 1;
+            this.TurnTimeLabel.Text = "Turn ends at\r\n00:00:00";
             // 
-            // adminReadyLabel
+            // AdminReadyLabel
             // 
-            this.adminReadyLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.adminReadyLabel.Location = new System.Drawing.Point(168, 3);
-            this.adminReadyLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.adminReadyLabel.Name = "adminReadyLabel";
-            this.adminReadyLabel.Size = new System.Drawing.Size(150, 37);
-            this.adminReadyLabel.TabIndex = 3;
-            this.adminReadyLabel.Text = "Administration ready\r\n0/100%";
+            this.AdminReadyLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AdminReadyLabel.Location = new System.Drawing.Point(168, 3);
+            this.AdminReadyLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.AdminReadyLabel.Name = "AdminReadyLabel";
+            this.AdminReadyLabel.Size = new System.Drawing.Size(150, 37);
+            this.AdminReadyLabel.TabIndex = 3;
+            this.AdminReadyLabel.Text = "Administration ready\r\n0/100%";
             // 
-            // readyCheck
+            // ReadyCheck
             // 
-            this.readyCheck.AutoCheck = false;
-            this.readyCheck.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.readyCheck.Location = new System.Drawing.Point(168, 87);
-            this.readyCheck.Margin = new System.Windows.Forms.Padding(4);
-            this.readyCheck.Name = "readyCheck";
-            this.readyCheck.Size = new System.Drawing.Size(150, 29);
-            this.readyCheck.TabIndex = 5;
-            this.readyCheck.Text = "Ready";
-            this.readyCheck.UseVisualStyleBackColor = true;
+            this.ReadyCheck.AutoCheck = false;
+            this.ReadyCheck.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ReadyCheck.Location = new System.Drawing.Point(168, 87);
+            this.ReadyCheck.Margin = new System.Windows.Forms.Padding(4);
+            this.ReadyCheck.Name = "ReadyCheck";
+            this.ReadyCheck.Size = new System.Drawing.Size(150, 29);
+            this.ReadyCheck.TabIndex = 5;
+            this.ReadyCheck.Text = "Ready";
+            this.ReadyCheck.UseVisualStyleBackColor = true;
             // 
-            // turnCountLabel
+            // TurnCountLabel
             // 
-            this.turnCountLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.turnCountLabel.Location = new System.Drawing.Point(7, 123);
-            this.turnCountLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.turnCountLabel.Name = "turnCountLabel";
-            this.turnCountLabel.Size = new System.Drawing.Size(150, 38);
-            this.turnCountLabel.TabIndex = 6;
-            this.turnCountLabel.Text = "Current turn\r\n420";
+            this.TurnCountLabel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TurnCountLabel.Location = new System.Drawing.Point(7, 123);
+            this.TurnCountLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.TurnCountLabel.Name = "TurnCountLabel";
+            this.TurnCountLabel.Size = new System.Drawing.Size(150, 38);
+            this.TurnCountLabel.TabIndex = 6;
+            this.TurnCountLabel.Text = "Current turn\r\n420";
             // 
-            // gmButton
+            // GMButton
             // 
-            this.gmButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gmButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gmButton.Location = new System.Drawing.Point(167, 126);
-            this.gmButton.Name = "gmButton";
-            this.gmButton.Size = new System.Drawing.Size(152, 32);
-            this.gmButton.TabIndex = 7;
-            this.gmButton.Text = "Gamemaster";
-            this.gmButton.UseVisualStyleBackColor = true;
-            this.gmButton.Visible = false;
-            this.gmButton.Click += new System.EventHandler(this.gmButton_Click);
+            this.GMButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.GMButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.GMButton.Location = new System.Drawing.Point(167, 126);
+            this.GMButton.Name = "GMButton";
+            this.GMButton.Size = new System.Drawing.Size(152, 32);
+            this.GMButton.TabIndex = 7;
+            this.GMButton.Text = "Gamemaster";
+            this.GMButton.UseVisualStyleBackColor = true;
+            this.GMButton.Visible = false;
+            this.GMButton.Click += new System.EventHandler(this.GMButton_Click);
             // 
-            // characterPanel
+            // CharacterPanel
             // 
-            this.characterPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.characterPanel.Controls.Add(this.characterLabel);
-            this.characterPanel.Controls.Add(this.characterBox);
-            this.characterPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.characterPanel.Location = new System.Drawing.Point(4, 176);
-            this.characterPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.characterPanel.Name = "characterPanel";
-            this.characterPanel.Size = new System.Drawing.Size(259, 224);
-            this.characterPanel.TabIndex = 3;
+            this.CharacterPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.CharacterPanel.Controls.Add(this.CharacterLabel);
+            this.CharacterPanel.Controls.Add(this.CharacterLayout);
+            this.CharacterPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CharacterPanel.Location = new System.Drawing.Point(4, 176);
+            this.CharacterPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.CharacterPanel.Name = "CharacterPanel";
+            this.CharacterPanel.Size = new System.Drawing.Size(259, 275);
+            this.CharacterPanel.TabIndex = 3;
             // 
-            // characterLabel
+            // CharacterLabel
             // 
-            this.characterLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.CharacterLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.characterLabel.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.characterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.characterLabel.Location = new System.Drawing.Point(0, 0);
-            this.characterLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.characterLabel.Name = "characterLabel";
-            this.characterLabel.Size = new System.Drawing.Size(258, 33);
-            this.characterLabel.TabIndex = 3;
-            this.characterLabel.Text = "Character Name";
-            this.characterLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.CharacterLabel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.CharacterLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CharacterLabel.Location = new System.Drawing.Point(0, 0);
+            this.CharacterLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.CharacterLabel.Name = "CharacterLabel";
+            this.CharacterLabel.Size = new System.Drawing.Size(258, 33);
+            this.CharacterLabel.TabIndex = 3;
+            this.CharacterLabel.Text = "Character Name";
+            this.CharacterLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // characterBox
+            // RoomPanel
             // 
-            this.characterBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.RoomPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.RoomPanel.Controls.Add(this.RoomLabel);
+            this.RoomPanel.Controls.Add(this.PopulationLabel);
+            this.RoomPanel.Controls.Add(this.AreaLabel);
+            this.RoomPanel.Controls.Add(this.RoomPeopleBox);
+            this.RoomPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.RoomPanel.Location = new System.Drawing.Point(895, 176);
+            this.RoomPanel.Margin = new System.Windows.Forms.Padding(4);
+            this.RoomPanel.Name = "RoomPanel";
+            this.RoomPanel.Size = new System.Drawing.Size(325, 275);
+            this.RoomPanel.TabIndex = 4;
+            // 
+            // RoomLabel
+            // 
+            this.RoomLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.RoomLabel.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.RoomLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RoomLabel.Location = new System.Drawing.Point(0, 20);
+            this.RoomLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.RoomLabel.Name = "RoomLabel";
+            this.RoomLabel.Size = new System.Drawing.Size(324, 40);
+            this.RoomLabel.TabIndex = 5;
+            this.RoomLabel.Text = "Room Name";
+            this.RoomLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // PopulationLabel
+            // 
+            this.PopulationLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PopulationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PopulationLabel.Location = new System.Drawing.Point(4, 60);
+            this.PopulationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.PopulationLabel.Name = "PopulationLabel";
+            this.PopulationLabel.Size = new System.Drawing.Size(312, 22);
+            this.PopulationLabel.TabIndex = 4;
+            this.PopulationLabel.Text = "People: ???";
+            this.PopulationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // AreaLabel
+            // 
+            this.AreaLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.AreaLabel.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.AreaLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AreaLabel.Location = new System.Drawing.Point(0, 0);
+            this.AreaLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.AreaLabel.Name = "AreaLabel";
+            this.AreaLabel.Size = new System.Drawing.Size(324, 20);
+            this.AreaLabel.TabIndex = 3;
+            this.AreaLabel.Text = "Area Name";
+            this.AreaLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // RoomPeopleBox
+            // 
+            this.RoomPeopleBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.characterBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.characterBox.Location = new System.Drawing.Point(0, 36);
-            this.characterBox.Margin = new System.Windows.Forms.Padding(4);
-            this.characterBox.Multiline = true;
-            this.characterBox.Name = "characterBox";
-            this.characterBox.ReadOnly = true;
-            this.characterBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.characterBox.Size = new System.Drawing.Size(258, 187);
-            this.characterBox.TabIndex = 2;
-            this.characterBox.Text = "RANK\r\nERROR\r\n\r\nBRANCH\r\nERROR\r\n\r\nFACTION\r\nERROR";
-            this.characterBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.RoomPeopleBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.RoomPeopleBox.Location = new System.Drawing.Point(4, 86);
+            this.RoomPeopleBox.Margin = new System.Windows.Forms.Padding(4);
+            this.RoomPeopleBox.Multiline = true;
+            this.RoomPeopleBox.Name = "RoomPeopleBox";
+            this.RoomPeopleBox.ReadOnly = true;
+            this.RoomPeopleBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.RoomPeopleBox.Size = new System.Drawing.Size(312, 183);
+            this.RoomPeopleBox.TabIndex = 2;
+            this.RoomPeopleBox.Text = "Empty";
             // 
-            // roomPanel
+            // Timer
             // 
-            this.roomPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.roomPanel.Controls.Add(this.populationLabel);
-            this.roomPanel.Controls.Add(this.roomLabel);
-            this.roomPanel.Controls.Add(this.roomPeopleBox);
-            this.roomPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.roomPanel.Location = new System.Drawing.Point(895, 176);
-            this.roomPanel.Margin = new System.Windows.Forms.Padding(4);
-            this.roomPanel.Name = "roomPanel";
-            this.roomPanel.Size = new System.Drawing.Size(325, 224);
-            this.roomPanel.TabIndex = 4;
+            this.Timer.Enabled = true;
+            this.Timer.Interval = 1000;
+            this.Timer.Tick += new System.EventHandler(this.Timer_Tick);
             // 
-            // populationLabel
+            // CharacterLayout
             // 
-            this.populationLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.CharacterLayout.ColumnCount = 1;
+            this.CharacterLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.CharacterLayout.Controls.Add(this.FactionLabel, 0, 5);
+            this.CharacterLayout.Controls.Add(this.FactionDescLabel, 0, 4);
+            this.CharacterLayout.Controls.Add(this.RankLabel, 0, 1);
+            this.CharacterLayout.Controls.Add(this.BranchLabel, 0, 3);
+            this.CharacterLayout.Controls.Add(this.BranchDescLabel, 0, 2);
+            this.CharacterLayout.Controls.Add(this.RankDescLabel, 0, 0);
+            this.CharacterLayout.Location = new System.Drawing.Point(3, 36);
+            this.CharacterLayout.Name = "CharacterLayout";
+            this.CharacterLayout.RowCount = 6;
+            this.CharacterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.CharacterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.CharacterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.CharacterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.CharacterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.CharacterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.CharacterLayout.Size = new System.Drawing.Size(251, 233);
+            this.CharacterLayout.TabIndex = 7;
+            // 
+            // BranchDescLabel
+            // 
+            this.BranchDescLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.populationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.populationLabel.Location = new System.Drawing.Point(4, 36);
-            this.populationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.populationLabel.Name = "populationLabel";
-            this.populationLabel.Size = new System.Drawing.Size(308, 22);
-            this.populationLabel.TabIndex = 4;
-            this.populationLabel.Text = "People: ???";
-            this.populationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.BranchDescLabel.Location = new System.Drawing.Point(3, 40);
+            this.BranchDescLabel.Name = "BranchDescLabel";
+            this.BranchDescLabel.Size = new System.Drawing.Size(245, 20);
+            this.BranchDescLabel.TabIndex = 7;
+            this.BranchDescLabel.Text = "Branch";
+            this.BranchDescLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // roomLabel
+            // BranchLabel
             // 
-            this.roomLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.BranchLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.roomLabel.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.roomLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.roomLabel.Location = new System.Drawing.Point(0, 0);
-            this.roomLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.roomLabel.Name = "roomLabel";
-            this.roomLabel.Size = new System.Drawing.Size(324, 33);
-            this.roomLabel.TabIndex = 3;
-            this.roomLabel.Text = "Room Name";
-            this.roomLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.BranchLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BranchLabel.Location = new System.Drawing.Point(3, 60);
+            this.BranchLabel.Name = "BranchLabel";
+            this.BranchLabel.Size = new System.Drawing.Size(245, 30);
+            this.BranchLabel.TabIndex = 8;
+            this.BranchLabel.Text = "BRANCH ERROR";
+            this.BranchLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // roomPeopleBox
+            // RankDescLabel
             // 
-            this.roomPeopleBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.RankDescLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.roomPeopleBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.roomPeopleBox.Location = new System.Drawing.Point(4, 62);
-            this.roomPeopleBox.Margin = new System.Windows.Forms.Padding(4);
-            this.roomPeopleBox.Multiline = true;
-            this.roomPeopleBox.Name = "roomPeopleBox";
-            this.roomPeopleBox.ReadOnly = true;
-            this.roomPeopleBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.roomPeopleBox.Size = new System.Drawing.Size(312, 156);
-            this.roomPeopleBox.TabIndex = 2;
-            this.roomPeopleBox.Text = "Empty";
+            this.RankDescLabel.Location = new System.Drawing.Point(3, 0);
+            this.RankDescLabel.Name = "RankDescLabel";
+            this.RankDescLabel.Size = new System.Drawing.Size(245, 20);
+            this.RankDescLabel.TabIndex = 9;
+            this.RankDescLabel.Text = "Rank";
+            this.RankDescLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // timer
+            // RankLabel
             // 
-            this.timer.Enabled = true;
-            this.timer.Interval = 1000;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            this.RankLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.RankLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RankLabel.Location = new System.Drawing.Point(3, 20);
+            this.RankLabel.Name = "RankLabel";
+            this.RankLabel.Size = new System.Drawing.Size(245, 20);
+            this.RankLabel.TabIndex = 10;
+            this.RankLabel.Text = "RANK ERROR";
+            this.RankLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // FactionDescLabel
+            // 
+            this.FactionDescLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FactionDescLabel.Location = new System.Drawing.Point(3, 90);
+            this.FactionDescLabel.Name = "FactionDescLabel";
+            this.FactionDescLabel.Size = new System.Drawing.Size(245, 20);
+            this.FactionDescLabel.TabIndex = 11;
+            this.FactionDescLabel.Text = "Faction";
+            this.FactionDescLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // FactionLabel
+            // 
+            this.FactionLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.FactionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FactionLabel.Location = new System.Drawing.Point(3, 110);
+            this.FactionLabel.Name = "FactionLabel";
+            this.FactionLabel.Size = new System.Drawing.Size(245, 30);
+            this.FactionLabel.TabIndex = 12;
+            this.FactionLabel.Text = "FACTION ERROR";
+            this.FactionLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1224, 521);
-            this.Controls.Add(this.centralPanel);
+            this.ClientSize = new System.Drawing.Size(1224, 597);
+            this.Controls.Add(this.CentralPanel);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(18, 518);
@@ -413,46 +510,53 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Crisis";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.centralPanel.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.chatPanel.ResumeLayout(false);
-            this.chatPanel.PerformLayout();
-            this.timePanel.ResumeLayout(false);
-            this.characterPanel.ResumeLayout(false);
-            this.characterPanel.PerformLayout();
-            this.roomPanel.ResumeLayout(false);
-            this.roomPanel.PerformLayout();
+            this.CentralPanel.ResumeLayout(false);
+            this.ObjectivesPanel.ResumeLayout(false);
+            this.ChatPanel.ResumeLayout(false);
+            this.ChatPanel.PerformLayout();
+            this.TimePanel.ResumeLayout(false);
+            this.CharacterPanel.ResumeLayout(false);
+            this.RoomPanel.ResumeLayout(false);
+            this.RoomPanel.PerformLayout();
+            this.CharacterLayout.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel centralPanel;
-        private System.Windows.Forms.Panel chatPanel;
-        private System.Windows.Forms.Button sendButton;
-        private System.Windows.Forms.TextBox chatInput;
-        private System.Windows.Forms.TextBox chatOutput;
-        private System.Windows.Forms.TableLayoutPanel timePanel;
-        private System.Windows.Forms.Label timeLabel;
-        private System.Windows.Forms.Label doomsdayLabel;
-        private System.Windows.Forms.Label turnTimeLabel;
-        private System.Windows.Forms.Label adminReadyLabel;
-        private System.Windows.Forms.Label staffReadyLabel;
-        private System.Windows.Forms.CheckBox readyCheck;
-        private System.Windows.Forms.Timer timer;
-        private System.Windows.Forms.TextBox characterBox;
-        private System.Windows.Forms.Panel characterPanel;
-        private System.Windows.Forms.Label characterLabel;
-        private System.Windows.Forms.Panel roomPanel;
-        private System.Windows.Forms.Label roomLabel;
-        private System.Windows.Forms.TextBox roomPeopleBox;
-        private System.Windows.Forms.Label populationLabel;
-        private System.Windows.Forms.Label turnCountLabel;
-        private System.Windows.Forms.CheckedListBox goalsList;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label objectivesLabel;
-        private System.Windows.Forms.Button gmButton;
+        private System.Windows.Forms.TableLayoutPanel CentralPanel;
+        private System.Windows.Forms.Panel ChatPanel;
+        private System.Windows.Forms.Button SendButton;
+        private System.Windows.Forms.TextBox ChatInput;
+        private System.Windows.Forms.TextBox ChatOutput;
+        private System.Windows.Forms.TableLayoutPanel TimePanel;
+        private System.Windows.Forms.Label TimeLabel;
+        private System.Windows.Forms.Label DoomsdayLabel;
+        private System.Windows.Forms.Label TurnTimeLabel;
+        private System.Windows.Forms.Label AdminReadyLabel;
+        private System.Windows.Forms.Label StaffReadyLabel;
+        private System.Windows.Forms.CheckBox ReadyCheck;
+        private System.Windows.Forms.Timer Timer;
+        private System.Windows.Forms.Panel CharacterPanel;
+        private System.Windows.Forms.Label CharacterLabel;
+        private System.Windows.Forms.Panel RoomPanel;
+        private System.Windows.Forms.Label AreaLabel;
+        private System.Windows.Forms.TextBox RoomPeopleBox;
+        private System.Windows.Forms.Label PopulationLabel;
+        private System.Windows.Forms.Label TurnCountLabel;
+        private System.Windows.Forms.CheckedListBox GoalsList;
+        private System.Windows.Forms.Panel ObjectivesPanel;
+        private System.Windows.Forms.Label ObjectivesLabel;
+        private System.Windows.Forms.Button GMButton;
+        private System.Windows.Forms.Label RoomLabel;
+        private System.Windows.Forms.TableLayoutPanel CharacterLayout;
+        private System.Windows.Forms.Label BranchLabel;
+        private System.Windows.Forms.Label BranchDescLabel;
+        private System.Windows.Forms.Label FactionLabel;
+        private System.Windows.Forms.Label FactionDescLabel;
+        private System.Windows.Forms.Label RankLabel;
+        private System.Windows.Forms.Label RankDescLabel;
     }
 }
 

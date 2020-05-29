@@ -37,7 +37,7 @@ namespace Crisis.View
                 connectForm.Show();
 
                 //client.Connect("192.223.30.122", 4242);
-                var result = await model.Connect("localhost", 4242, new Messages.Client.AuthMessage { Mail = username, Password = password });
+                var result = await model.Connect("localhost", 4242, new Messages.Client.AuthMessage(username, password));
 
                 if (result == ConnectAttemptResult.GenericFail)
                 {

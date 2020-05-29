@@ -11,7 +11,12 @@ namespace Crisis.Messages.Server
     [Serializable]
     public class RegisterResponeMessage : ServerMessage
     {
-        public RegisterResponse Response;
+        public RegisterResponse Response { get; }
+
+        public RegisterResponeMessage(RegisterResponse response)
+        {
+            Response = response;
+        }
 
         public override void Visit(IServerHandler visitor)
         {
