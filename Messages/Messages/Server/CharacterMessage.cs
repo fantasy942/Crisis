@@ -10,9 +10,9 @@ namespace Crisis.Messages.Server
         public string Branch;
         public string Faction;
 
-        public override void Visit(IServerVisitor visitor)
+        public override void Visit(IServerHandler visitor)
         {
-            visitor.VisitCharacter(this);
+            visitor.HandleCharacter(this);
         }
     }
 }

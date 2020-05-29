@@ -8,6 +8,6 @@ namespace Crisis.Messages.Server
     [Serializable]
     public abstract class ServerMessage : Message
     {
-        public abstract void Visit(IServerVisitor visitor);
+        public abstract void Visit(IServerHandler visitor);
     }
 }

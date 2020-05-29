@@ -7,9 +7,9 @@ namespace Crisis.Messages.Client
     {
         public string Text;
 
-        public override void Visit(IClientVisitor visitor)
+        public override void Visit(IClientHandler visitor)
         {
-            visitor.VisitSpeech(this);
+            visitor.HandleSpeech(this);
         }
     }
 }

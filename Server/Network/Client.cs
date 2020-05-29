@@ -6,7 +6,7 @@ using Hyalus;
 
 namespace Crisis.Network
 {
-    class Client : IClientVisitor
+    class Client : IClientHandler
     {
         private readonly Connection<Message> connection;
 
@@ -54,7 +54,7 @@ namespace Crisis.Network
             msg.Visit(this);
         }
 
-        public void VisitAuth(AuthMessage msg)
+        public void HandleAuth(AuthMessage msg)
         {
             if (Authed) //Someone tried to auth twice?
             {
@@ -78,12 +78,12 @@ namespace Crisis.Network
             Authed = true;
         }
 
-        public void VisitRegister(RegisterMessage msg)
+        public void HandleRegister(RegisterMessage msg)
         {
             Send(new RegisterResponeMessage { Response = RegisterResponse.Ok }); //TODO: Get a db
         }
 
-        public void VisitSpeech(SpeechMessage msg)
+        public void HandleSpeech(SpeechMessage msg)
         {
             if (!Authed) return;
             Character.Speak(msg.Text);

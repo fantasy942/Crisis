@@ -13,9 +13,9 @@ namespace Crisis.Messages.Server
     {
         public RegisterResponse Response;
 
-        public override void Visit(IServerVisitor visitor)
+        public override void Visit(IServerHandler visitor)
         {
-            visitor.VisitRegisterResponse(this);
+            visitor.HandleRegisterResponse(this);
         }
     }
 }

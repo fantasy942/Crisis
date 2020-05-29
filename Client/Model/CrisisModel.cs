@@ -7,7 +7,7 @@ using Hyalus;
 
 namespace Crisis.Model
 {
-    public class CrisisModel : IServerVisitor
+    public class CrisisModel : IServerHandler
     {
         private readonly Client<Message> client = new Client<Message>(new MessageCommunicator());
 
@@ -66,42 +66,42 @@ namespace Crisis.Model
         }
 
         #region Message handling
-        public void VisitAuthConfirm(AuthConfirmMessage msg)
+        public void HandleAuthConfirm(AuthConfirmMessage msg)
         {
             lastAuthSucceeded = true;
         }
 
-        public void VisitAuthDeny(AuthDenyMessage msg)
+        public void HandleAuthDeny(AuthDenyMessage msg)
         {
             lastAuthSucceeded = false;
         }
 
-        public void VisitGMChanged(GMChangedMessage msg)
+        public void HandleGMChanged(GMChangedMessage msg)
         {
             OnGmChanged?.Invoke(msg.IsGM);
         }
 
-        public void VisitHear(HearMessage msg)
+        public void HandleHear(HearMessage msg)
         {
             OnHear?.Invoke(msg.Name, msg.Rank, msg.Text, msg.Time);
         }
 
-        public void VisitRegisterResponse(RegisterResponeMessage msg)
+        public void HandleRegisterResponse(RegisterResponeMessage msg)
         {
             throw new NotImplementedException();
         }
 
-        public void VisitTimeTurn(TimeTurnMessage msg)
+        public void HandleTimeTurn(TimeTurnMessage msg)
         {
             OnTimeTurn?.Invoke(msg.Time, msg.TurnEnd, msg.Turn);
         }
 
-        public void VisitCharacter(CharacterMessage msg)
+        public void HandleCharacter(CharacterMessage msg)
         {
             OnCharacterChanged?.Invoke(msg.Name, msg.Rank, msg.Branch, msg.Faction);
         }
 
-        public void VisitRoom(RoomMessage msg)
+        public void HandleRoom(RoomMessage msg)
         {
             OnRoomChanged.Invoke(msg.Name, msg.People);
         }

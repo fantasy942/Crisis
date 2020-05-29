@@ -5,9 +5,9 @@ namespace Crisis.Messages.Server
     [Serializable]
     public class AuthDenyMessage : ServerMessage
     {
-        public override void Visit(IServerVisitor visitor)
+        public override void Visit(IServerHandler visitor)
         {
-            visitor.VisitAuthDeny(this);
+            visitor.HandleAuthDeny(this);
         }
     }
 }

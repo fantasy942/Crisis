@@ -10,9 +10,9 @@ namespace Crisis.Messages.Server
         public string Name;
         public string Text;
 
-        public override void Visit(IServerVisitor visitor)
+        public override void Visit(IServerHandler visitor)
         {
-            visitor.VisitHear(this);
+            visitor.HandleHear(this);
         }
     }
 }

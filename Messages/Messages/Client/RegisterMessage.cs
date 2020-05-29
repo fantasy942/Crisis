@@ -8,9 +8,9 @@ namespace Crisis.Messages.Client
         public string Mail;
         public string Password;
 
-        public override void Visit(IClientVisitor visitor)
+        public override void Visit(IClientHandler visitor)
         {
-            visitor.VisitRegister(this);
+            visitor.HandleRegister(this);
         }
     }
 }

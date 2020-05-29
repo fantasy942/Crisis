@@ -8,9 +8,9 @@ namespace Crisis.Messages.Server
         public DateTime TurnEnd;
         public int Turn;
 
-        public override void Visit(IServerVisitor visitor)
+        public override void Visit(IServerHandler visitor)
         {
-            visitor.VisitTimeTurn(this);
+            visitor.HandleTimeTurn(this);
         }
     }
 }

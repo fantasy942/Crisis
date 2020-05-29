@@ -7,9 +7,9 @@ namespace Crisis.Messages.Server
     {
         public bool IsGM;
 
-        public override void Visit(IServerVisitor visitor)
+        public override void Visit(IServerHandler visitor)
         {
-            visitor.VisitGMChanged(this);
+            visitor.HandleGMChanged(this);
         }
     }
 }

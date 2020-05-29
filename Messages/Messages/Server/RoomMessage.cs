@@ -8,9 +8,9 @@ namespace Crisis.Messages.Server
         public string Name;
         public string[] People;
 
-        public override void Visit(IServerVisitor visitor)
+        public override void Visit(IServerHandler visitor)
         {
-            visitor.VisitRoom(this);
+            visitor.HandleRoom(this);
         }
     }
 }
