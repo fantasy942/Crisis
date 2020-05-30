@@ -1,5 +1,4 @@
 ﻿using Crisis.Messages.Server;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -50,7 +49,7 @@ namespace Crisis
         {
             foreach (var item in characters)
             {
-                item.Client?.Send(RoomMessage.PeopleChanged(characters.Select(x => x.Name).ToArray() ?? Array.Empty<string>()));
+                item.Client?.Send(RoomMessage.PeopleChanged(characters.Select(x => x.Name).ToArray()));
             }
         }
     }

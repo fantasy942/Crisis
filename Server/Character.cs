@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Crisis.Messages.Server;
 using Crisis.Network;
+using Crisis.Ranks;
 
 namespace Crisis
 {
@@ -10,6 +11,8 @@ namespace Crisis
     {
         private static readonly List<Character> characters = new List<Character>();
         public static IReadOnlyList<Character> Characters => characters;
+
+        public bool Ready { get; set; } = false;
 
         private string name;
         public string Name
@@ -54,6 +57,7 @@ namespace Crisis
         }
 
         public Client Client { get; set; }
+
         public bool Awake => Client != null && Client.Connected;
         
         public Character(string name)
@@ -72,7 +76,7 @@ namespace Crisis
 
         public void Hear(string source, string text)
         {
-            Client?.Send(new HearMessage(DateTime.Now, string.Empty, source, text));
+            Client?.Send(new HearMessage(DateTime.Now, rank.Name, source, text));
         }
     }
 }

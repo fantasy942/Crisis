@@ -2,7 +2,6 @@
 using System.Windows.Forms;
 using Crisis.Model;
 using Crisis.Messages.Client;
-using System.Linq;
 
 namespace Crisis.View
 {
@@ -25,7 +24,7 @@ namespace Crisis.View
 
         private void RegisterModelEvents()
         {
-            model.OnHear += (name, rank, text, time) => ChatOutput.AppendText($"{rank} {name} | {time}{Environment.NewLine}{text}{Environment.NewLine}");
+            model.OnHear += (name, rank, text, time) => ChatOutput.AppendText($"{Environment.NewLine}{rank} {name} | {time}{Environment.NewLine}{text}");
             
             model.OnGmChanged += x =>
             {
@@ -43,12 +42,13 @@ namespace Crisis.View
                 TurnTimeLabel.Text = $"Turn ends at{Environment.NewLine}{turnend:HH:mm:ss}";
             };
 
-            model.OnCharacterChanged += (name, rank, branch, faction) =>
+            model.OnCharacterChanged += (name, rank, branch, faction, ready) =>
             {
-                CharacterLabel.Text = name;
+                if (name != null) CharacterLabel.Text = name;
                 if (rank != null) RankLabel.Text = rank;
                 if (branch != null) BranchLabel.Text = branch;
                 if (faction != null) FactionLabel.Text = faction;
+                if (ready != null) ReadyCheck.Checked = ready.Value;
             };
 
             model.OnRoomChanged += (area, name, people) =>
@@ -67,7 +67,12 @@ namespace Crisis.View
                         RoomPeopleBox.Text = string.Join(Environment.NewLine, people);
                     }
                 }
-                
+            };
+
+            model.OnReadinessUpdated += (staffready, staffneeded, officerready, officerneeded) =>
+            {
+                AdminReadyLabel.Text = $"Heads ready{Environment.NewLine}{officerready}/{officerneeded}%";
+                StaffReadyLabel.Text = $"Staff ready{Environment.NewLine}{staffready}/{staffneeded}%";
             };
         }
 
@@ -91,13 +96,22 @@ namespace Crisis.View
         {
             serverTime = serverTime.AddMilliseconds(Timer.Interval);
             TimeLabel.Text = $"Current time{Environment.NewLine}{serverTime:HH:mm:ss}";
-            var timeLeftToDoomsday = doomsdayTime - serverTime;
-            DoomsdayLabel.Text = $"Turn ends in{Environment.NewLine}{timeLeftToDoomsday:hh\\:mm\\:ss}";
+            DoomsdayLabel.Text = $"Turn ends in{Environment.NewLine}{doomsdayTime - serverTime:hh\\:mm\\:ss}";
         }
 
         private void GMButton_Click(object sender, EventArgs e)
         {
             gmForm.Show();
+        }
+
+        private void ReadyCheck_Click(object sender, EventArgs e)
+        {
+            model.Send(new ReadyMessage(!ReadyCheck.Checked));
+        }
+
+        private void ToolstripExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

@@ -49,6 +49,7 @@
     <Compile Include="MessageCommunicator.cs" />
     <Compile Include="Messages\Client\ClientMessage.cs" />
     <Compile Include="Messages\Client\IClientHandler.cs" />
+    <Compile Include="Messages\Client\ReadyMessage.cs" />
     <Compile Include="Messages\Server\AuthConfirmMessage.cs" />
     <Compile Include="Messages\Server\AuthDenyMessage.cs" />
     <Compile Include="Messages\Server\CharacterMessage.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Messages\Server\HearMessage.cs" />
     <Compile Include="Messages\Client\RegisterMessage.cs" />
     <Compile Include="Messages\Server\IServerHandler.cs" />
+    <Compile Include="Messages\Server\ReadinessMessage.cs" />
     <Compile Include="Messages\Server\RegisterResponeMessage.cs" />
     <Compile Include="Messages\Client\SpeechMessage.cs" />
     <Compile Include="Messages\Client\AuthMessage.cs" />

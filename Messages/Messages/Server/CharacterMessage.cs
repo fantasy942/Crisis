@@ -9,6 +9,7 @@ namespace Crisis.Messages.Server
         public string Rank { get; set; }
         public string Branch { get; set; }
         public string Faction { get; set; }
+        public bool? Ready { get; set; }
 
         public override void Visit(IServerHandler visitor)
         {

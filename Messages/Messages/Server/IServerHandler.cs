@@ -10,5 +10,6 @@
         void HandleTimeTurn(TimeTurnMessage msg);
         void HandleCharacter(CharacterMessage msg);
         void HandleRoom(RoomMessage msg);
+        void HandleReadiness(ReadinessMessage msg);
     }
 }

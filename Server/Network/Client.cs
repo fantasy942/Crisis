@@ -54,6 +54,7 @@ namespace Crisis.Network
             msg.Visit(this);
         }
 
+        #region Message handling
         public void HandleAuth(AuthMessage msg)
         {
             if (Authed) //Someone tried to auth twice?
@@ -70,7 +71,7 @@ namespace Crisis.Network
                 new AuthConfirmMessage(),
                 new GMChangedMessage(true),
                 new TimeTurnMessage(DateTime.UtcNow, DateTime.UtcNow.AddHours(1), 42),
-                new CharacterMessage { Name = msg.Mail, Rank = Character.Rank.Name, Branch = "???", Faction = "None" }
+                new CharacterMessage { Name = Character.Name, Rank = Character.Rank.Name, Branch = "???", Faction = "None", Ready = Character.Ready }
                 );
 
             Character.Room = Room.Lobby;
@@ -85,8 +86,26 @@ namespace Crisis.Network
 
         public void HandleSpeech(SpeechMessage msg)
         {
-            if (!Authed) return;
+            if (!Authed || msg.Text == null) return;
             Character.Speak(msg.Text);
         }
+
+        public void HandleReady(ReadyMessage msg)
+        {
+            if (Character != null)
+            {
+                Character.Ready = msg.Ready;
+                Send(new CharacterMessage { Ready = msg.Ready });
+                foreach (var item in Character.Characters)
+                {
+                    item.Client?.Send(new ReadinessMessage(0, 79, 0, 99));
+                }
+            }
+            else
+            {
+                Send(new CharacterMessage { Ready = false });
+            }
+        }
+        #endregion
     }
 }

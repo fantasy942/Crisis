@@ -1,8 +1,7 @@
 ﻿using Crisis.Messages.Server;
-using System;
 using System.Collections.Generic;
 
-namespace Crisis
+namespace Crisis.Ranks
 {
     class Rank
     {

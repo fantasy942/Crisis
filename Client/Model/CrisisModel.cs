@@ -15,14 +15,16 @@ namespace Crisis.Model
 
         public delegate void HearDelegate(string name, string rank, string text, DateTime time);
         public delegate void TurnDelegate(DateTime time, DateTime turnend, int turn);
-        public delegate void CharacterDelegate(string name, string rank, string branch, string faction);
+        public delegate void CharacterDelegate(string name, string rank, string branch, string faction, bool? ready);
         public delegate void RoomDelegate(string area, string name, string[] people);
+        public delegate void ReadinessDelegate(byte staffready, byte staffneeded, byte headsready, byte headsneeded);
 
         public event HearDelegate OnHear;
         public event Action<bool> OnGmChanged;
         public event TurnDelegate OnTimeTurn;
         public event CharacterDelegate OnCharacterChanged;
         public event RoomDelegate OnRoomChanged;
+        public event ReadinessDelegate OnReadinessUpdated;
 
         public async Task<ConnectAttemptResult> Connect(string ip, int port, ClientMessage startingMessage)
         {
@@ -98,12 +100,17 @@ namespace Crisis.Model
 
         public void HandleCharacter(CharacterMessage msg)
         {
-            OnCharacterChanged?.Invoke(msg.Name, msg.Rank, msg.Branch, msg.Faction);
+            OnCharacterChanged?.Invoke(msg.Name, msg.Rank, msg.Branch, msg.Faction, msg.Ready);
         }
 
         public void HandleRoom(RoomMessage msg)
         {
-            OnRoomChanged.Invoke(msg.Area, msg.Room, msg.People);
+            OnRoomChanged?.Invoke(msg.Area, msg.Room, msg.People);
+        }
+
+        public void HandleReadiness(ReadinessMessage msg)
+        {
+            OnReadinessUpdated?.Invoke(msg.StaffReady, msg.StaffNeeded, msg.HeadsReady, msg.HeadsNeeded);
         }
         #endregion
     }

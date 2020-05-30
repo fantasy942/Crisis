@@ -41,5 +41,8 @@ namespace Crisis
         }
 
         public static Area Lobby { get; } = new Area("Lobby");
+
+        private static readonly List<Area> areas = new List<Area>();
+        public static IReadOnlyList<Area> Areas => areas;
     }
 }
