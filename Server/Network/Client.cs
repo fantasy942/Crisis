@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Linq;
 using Crisis.Messages;
 using Crisis.Messages.Client;
 using Crisis.Messages.Server;
+using Crisis.Persistence;
 using Hyalus;
 
 namespace Crisis.Network
@@ -62,19 +64,23 @@ namespace Crisis.Network
                 return;
             }
 
-            Character = new Character(msg.Mail)
+            Character = Database.Context.Characters.SingleOrDefault(x => x.Name == msg.Mail);
+            if (Character == null)
             {
-                Client = this
-            };
+                Character = new Character { Name = msg.Mail };
+                Database.Context.Characters.Add(Character);
+            }
+            Character.Client = this;
 
             Send(
                 new AuthConfirmMessage(),
                 new GMChangedMessage(true),
                 new TimeTurnMessage(DateTime.UtcNow, DateTime.UtcNow.AddHours(1), 42),
-                new CharacterMessage { Name = Character.Name, Rank = Character.Rank.Name, Branch = "???", Faction = "None", Ready = Character.Ready }
+                new CharacterMessage { Name = Character.Name, /*Rank = Character.Rank.Name, */ Branch = "???", Faction = "None", Ready = Character.Ready }
                 );
 
             Character.Room = Room.Lobby;
+            Database.Context.SaveChanges();
 
             Authed = true;
         }
@@ -96,7 +102,7 @@ namespace Crisis.Network
             {
                 Character.Ready = msg.Ready;
                 Send(new CharacterMessage { Ready = msg.Ready });
-                foreach (var item in Character.Characters)
+                foreach (var item in Database.Context.Characters)
                 {
                     item.Client?.Send(new ReadinessMessage(0, 79, 0, 99));
                 }

@@ -1,4 +1,4 @@
-﻿namespace Crisis.Ranks
+﻿namespace Crisis.Persistence
 {
     enum RankPriority
     {

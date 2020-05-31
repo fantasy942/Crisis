@@ -1,6 +1,0 @@
-﻿namespace Crisis
-{
-    class Faction
-    {
-    }
-}
