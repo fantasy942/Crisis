@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Crisis.Messages;
 using Crisis.Messages.Client;
@@ -26,6 +27,7 @@ namespace Crisis.Network
         {
             this.connection = connection;
             this.onDisconnect = onDisconnect;
+            clients.Add(this);
         }
 
         public void Disconnect()
@@ -43,6 +45,7 @@ namespace Crisis.Network
             }
             connection.Disconnect();
             onDisconnect(connection);
+            clients.Remove(this);
         }
 
         public void Send(params ServerMessage[] msg)
@@ -101,11 +104,6 @@ namespace Crisis.Network
             if (Character != null)
             {
                 Character.Ready = msg.Ready;
-                Send(new CharacterMessage { Ready = msg.Ready });
-                foreach (var item in Database.Context.Characters)
-                {
-                    item.Client?.Send(new ReadinessMessage(0, 79, 0, 99));
-                }
             }
             else
             {
@@ -113,5 +111,8 @@ namespace Crisis.Network
             }
         }
         #endregion
+
+        private static readonly List<Client> clients = new List<Client>();
+        public static IReadOnlyList<Client> Clients => clients;
     }
 }

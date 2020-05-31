@@ -25,7 +25,21 @@ namespace Crisis.Persistence
             }
         }
 
-        public bool Ready { get; set; } = false;
+        private bool _ready = false;
+        public bool Ready
+        {
+            get => _ready;
+            set
+            {
+                _ready = value;
+                Client?.Send(new CharacterMessage { Ready = _ready });
+                Database.Context.SaveChanges();
+                foreach (var item in Client.Clients)
+                {
+                    item.Send(new ReadinessMessage(0, 79, 0, 99));
+                }
+            }
+        }
 
         private Rank _rank;
         public Rank Rank
