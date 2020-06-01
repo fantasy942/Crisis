@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Crisis.Messages;
 using Crisis.Messages.Client;
 using Crisis.Messages.Server;
@@ -70,19 +71,24 @@ namespace Crisis.Network
             Character = Database.Context.Characters.SingleOrDefault(x => x.Name == msg.Mail);
             if (Character == null)
             {
-                Character = new Character { Name = msg.Mail };
+                Character = new Character(msg.Mail, Room.Lobby, null);
                 Database.Context.Characters.Add(Character);
             }
             Character.Client = this;
+            Database.Context.SaveChanges();
 
             Send(
                 new AuthConfirmMessage(),
                 new GMChangedMessage(true),
                 new TimeTurnMessage(DateTime.UtcNow, DateTime.UtcNow.AddHours(1), 42),
-                new CharacterMessage { Name = Character.Name, /*Rank = Character.Rank.Name, */ Branch = "???", Faction = "None", Ready = Character.Ready }
+                new CharacterMessage { Name = Character.Name, /*Rank = Character.Rank.Name, */ Branch = "???", Faction = "None", Ready = Character.Ready },
+                new AreaMessage(Character.Room.Area.Name, Database.Context.Rooms.Where(x => x.Area == Character.Room.Area).Select(x => x.Name).ToArray()),
+                new RoomMessage(Character.Room.Name),
+                new PeopleMessage(
+                    PeopleMessageType.Override,
+                    Database.Context.Characters.Where(x => x.Room == Character.Room).Select(x => x.Name).ToArray())
                 );
 
-            Character.Room = Room.Lobby;
             Database.Context.SaveChanges();
 
             Authed = true;
@@ -109,6 +115,16 @@ namespace Crisis.Network
             {
                 Send(new CharacterMessage { Ready = false });
             }
+        }
+
+        public void HandleRoom(RoomTravelMessage msg)
+        {
+            Character.Room = Database.Context.Rooms.SingleOrDefault(x => x.Area == Character.Room.Area && x.Name == msg.Room) ?? Character.Room;
+        }
+
+        public void HandleArea(AreaTravelMessage msg)
+        {
+            //TODO
         }
         #endregion
 

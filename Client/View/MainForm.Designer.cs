@@ -57,10 +57,17 @@
             this.BranchDescLabel = new System.Windows.Forms.Label();
             this.RankDescLabel = new System.Windows.Forms.Label();
             this.RoomPanel = new System.Windows.Forms.Panel();
+            this.statusStrip2 = new System.Windows.Forms.StatusStrip();
+            this.PopulationLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.RoomLabel = new System.Windows.Forms.Label();
-            this.PopulationLabel = new System.Windows.Forms.Label();
             this.AreaLabel = new System.Windows.Forms.Label();
             this.RoomPeopleBox = new System.Windows.Forms.TextBox();
+            this.TravelSplit = new System.Windows.Forms.SplitContainer();
+            this.TravelRoomList = new System.Windows.Forms.ListBox();
+            this.TravelRoomLabel = new System.Windows.Forms.Label();
+            this.TravelAreaInfoLabel = new System.Windows.Forms.Label();
+            this.TravelAreaInfo = new System.Windows.Forms.Label();
+            this.AreaBox = new System.Windows.Forms.ComboBox();
             this.Timer = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
@@ -73,6 +80,11 @@
             this.CharacterPanel.SuspendLayout();
             this.CharacterLayout.SuspendLayout();
             this.RoomPanel.SuspendLayout();
+            this.statusStrip2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TravelSplit)).BeginInit();
+            this.TravelSplit.Panel1.SuspendLayout();
+            this.TravelSplit.Panel2.SuspendLayout();
+            this.TravelSplit.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,6 +102,7 @@
             this.CentralPanel.Controls.Add(this.TimePanel, 2, 0);
             this.CentralPanel.Controls.Add(this.CharacterPanel, 0, 1);
             this.CentralPanel.Controls.Add(this.RoomPanel, 2, 1);
+            this.CentralPanel.Controls.Add(this.TravelSplit, 1, 0);
             this.CentralPanel.Location = new System.Drawing.Point(0, 29);
             this.CentralPanel.Margin = new System.Windows.Forms.Padding(4);
             this.CentralPanel.Name = "CentralPanel";
@@ -339,6 +352,9 @@
             // 
             // CharacterLayout
             // 
+            this.CharacterLayout.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.CharacterLayout.ColumnCount = 1;
             this.CharacterLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.CharacterLayout.Controls.Add(this.FactionLabel, 0, 5);
@@ -356,7 +372,7 @@
             this.CharacterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.CharacterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.CharacterLayout.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.CharacterLayout.Size = new System.Drawing.Size(251, 233);
+            this.CharacterLayout.Size = new System.Drawing.Size(251, 377);
             this.CharacterLayout.TabIndex = 7;
             // 
             // FactionLabel
@@ -431,8 +447,8 @@
             // RoomPanel
             // 
             this.RoomPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.RoomPanel.Controls.Add(this.statusStrip2);
             this.RoomPanel.Controls.Add(this.RoomLabel);
-            this.RoomPanel.Controls.Add(this.PopulationLabel);
             this.RoomPanel.Controls.Add(this.AreaLabel);
             this.RoomPanel.Controls.Add(this.RoomPeopleBox);
             this.RoomPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -441,6 +457,24 @@
             this.RoomPanel.Name = "RoomPanel";
             this.RoomPanel.Size = new System.Drawing.Size(325, 418);
             this.RoomPanel.TabIndex = 4;
+            // 
+            // statusStrip2
+            // 
+            this.statusStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.statusStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.PopulationLabel});
+            this.statusStrip2.Location = new System.Drawing.Point(0, 390);
+            this.statusStrip2.Name = "statusStrip2";
+            this.statusStrip2.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.statusStrip2.Size = new System.Drawing.Size(323, 26);
+            this.statusStrip2.TabIndex = 6;
+            this.statusStrip2.Text = "RoomStrip";
+            // 
+            // PopulationLabel
+            // 
+            this.PopulationLabel.Name = "PopulationLabel";
+            this.PopulationLabel.Size = new System.Drawing.Size(17, 20);
+            this.PopulationLabel.Text = "0";
             // 
             // RoomLabel
             // 
@@ -455,19 +489,6 @@
             this.RoomLabel.TabIndex = 5;
             this.RoomLabel.Text = "Room Name";
             this.RoomLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // PopulationLabel
-            // 
-            this.PopulationLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.PopulationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PopulationLabel.Location = new System.Drawing.Point(4, 60);
-            this.PopulationLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.PopulationLabel.Name = "PopulationLabel";
-            this.PopulationLabel.Size = new System.Drawing.Size(312, 22);
-            this.PopulationLabel.TabIndex = 4;
-            this.PopulationLabel.Text = "People: ???";
-            this.PopulationLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // AreaLabel
             // 
@@ -489,7 +510,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.RoomPeopleBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.RoomPeopleBox.Location = new System.Drawing.Point(4, 86);
+            this.RoomPeopleBox.Location = new System.Drawing.Point(4, 64);
             this.RoomPeopleBox.Margin = new System.Windows.Forms.Padding(4);
             this.RoomPeopleBox.Multiline = true;
             this.RoomPeopleBox.Name = "RoomPeopleBox";
@@ -498,6 +519,93 @@
             this.RoomPeopleBox.Size = new System.Drawing.Size(312, 326);
             this.RoomPeopleBox.TabIndex = 2;
             this.RoomPeopleBox.Text = "Empty";
+            // 
+            // TravelSplit
+            // 
+            this.TravelSplit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TravelSplit.IsSplitterFixed = true;
+            this.TravelSplit.Location = new System.Drawing.Point(270, 3);
+            this.TravelSplit.Name = "TravelSplit";
+            // 
+            // TravelSplit.Panel1
+            // 
+            this.TravelSplit.Panel1.Controls.Add(this.TravelRoomList);
+            this.TravelSplit.Panel1.Controls.Add(this.TravelRoomLabel);
+            // 
+            // TravelSplit.Panel2
+            // 
+            this.TravelSplit.Panel2.Controls.Add(this.TravelAreaInfoLabel);
+            this.TravelSplit.Panel2.Controls.Add(this.TravelAreaInfo);
+            this.TravelSplit.Panel2.Controls.Add(this.AreaBox);
+            this.TravelSplit.Size = new System.Drawing.Size(643, 166);
+            this.TravelSplit.SplitterDistance = 321;
+            this.TravelSplit.TabIndex = 7;
+            // 
+            // TravelRoomList
+            // 
+            this.TravelRoomList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TravelRoomList.FormattingEnabled = true;
+            this.TravelRoomList.IntegralHeight = false;
+            this.TravelRoomList.ItemHeight = 16;
+            this.TravelRoomList.Items.AddRange(new object[] {
+            "Error room 1",
+            "Error room 2",
+            "Error room 3"});
+            this.TravelRoomList.Location = new System.Drawing.Point(3, 38);
+            this.TravelRoomList.Name = "TravelRoomList";
+            this.TravelRoomList.Size = new System.Drawing.Size(315, 125);
+            this.TravelRoomList.TabIndex = 2;
+            // 
+            // TravelRoomLabel
+            // 
+            this.TravelRoomLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TravelRoomLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TravelRoomLabel.Location = new System.Drawing.Point(3, 4);
+            this.TravelRoomLabel.Name = "TravelRoomLabel";
+            this.TravelRoomLabel.Size = new System.Drawing.Size(315, 31);
+            this.TravelRoomLabel.TabIndex = 1;
+            this.TravelRoomLabel.Text = "Travel to Room:";
+            this.TravelRoomLabel.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // TravelAreaInfoLabel
+            // 
+            this.TravelAreaInfoLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TravelAreaInfoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TravelAreaInfoLabel.Location = new System.Drawing.Point(4, 44);
+            this.TravelAreaInfoLabel.Name = "TravelAreaInfoLabel";
+            this.TravelAreaInfoLabel.Size = new System.Drawing.Size(311, 73);
+            this.TravelAreaInfoLabel.TabIndex = 4;
+            this.TravelAreaInfoLabel.Text = "At the end of the turn\r\nyou will travel to:";
+            this.TravelAreaInfoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // TravelAreaInfo
+            // 
+            this.TravelAreaInfo.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TravelAreaInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TravelAreaInfo.Location = new System.Drawing.Point(3, 4);
+            this.TravelAreaInfo.Name = "TravelAreaInfo";
+            this.TravelAreaInfo.Size = new System.Drawing.Size(312, 31);
+            this.TravelAreaInfo.TabIndex = 3;
+            this.TravelAreaInfo.Text = "Travel to Area:";
+            this.TravelAreaInfo.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
+            // AreaBox
+            // 
+            this.AreaBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.AreaBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.AreaBox.Items.AddRange(new object[] {
+            "Nowhere"});
+            this.AreaBox.Location = new System.Drawing.Point(29, 121);
+            this.AreaBox.Name = "AreaBox";
+            this.AreaBox.Size = new System.Drawing.Size(261, 24);
+            this.AreaBox.TabIndex = 2;
             // 
             // Timer
             // 
@@ -567,6 +675,12 @@
             this.CharacterLayout.ResumeLayout(false);
             this.RoomPanel.ResumeLayout(false);
             this.RoomPanel.PerformLayout();
+            this.statusStrip2.ResumeLayout(false);
+            this.statusStrip2.PerformLayout();
+            this.TravelSplit.Panel1.ResumeLayout(false);
+            this.TravelSplit.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.TravelSplit)).EndInit();
+            this.TravelSplit.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -594,7 +708,6 @@
         private System.Windows.Forms.Panel RoomPanel;
         private System.Windows.Forms.Label AreaLabel;
         private System.Windows.Forms.TextBox RoomPeopleBox;
-        private System.Windows.Forms.Label PopulationLabel;
         private System.Windows.Forms.Label TurnCountLabel;
         private System.Windows.Forms.CheckedListBox GoalsList;
         private System.Windows.Forms.Panel ObjectivesPanel;
@@ -612,6 +725,14 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripDropDownButton ToolstripSystem;
         private System.Windows.Forms.ToolStripMenuItem ToolstripExit;
+        private System.Windows.Forms.StatusStrip statusStrip2;
+        private System.Windows.Forms.ToolStripStatusLabel PopulationLabel;
+        private System.Windows.Forms.Label TravelRoomLabel;
+        private System.Windows.Forms.ComboBox AreaBox;
+        private System.Windows.Forms.SplitContainer TravelSplit;
+        private System.Windows.Forms.ListBox TravelRoomList;
+        private System.Windows.Forms.Label TravelAreaInfo;
+        private System.Windows.Forms.Label TravelAreaInfoLabel;
     }
 }
 

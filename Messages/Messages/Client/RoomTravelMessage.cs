@@ -1,18 +1,18 @@
 ﻿using System;
 
-namespace Crisis.Messages.Server
+namespace Crisis.Messages.Client
 {
     [Serializable]
-    public class RoomMessage : ServerMessage
+    public class RoomTravelMessage : ClientMessage
     {
         public string Room { get; }
 
-        public RoomMessage(string room)
+        public RoomTravelMessage(string room)
         {
             Room = room;
         }
 
-        public override void Visit(IServerHandler visitor)
+        public override void Visit(IClientHandler visitor)
         {
             visitor.HandleRoom(this);
         }

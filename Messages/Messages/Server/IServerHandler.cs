@@ -11,5 +11,7 @@
         void HandleCharacter(CharacterMessage msg);
         void HandleRoom(RoomMessage msg);
         void HandleReadiness(ReadinessMessage msg);
+        void HandlePeople(PeopleMessage msg);
+        void HandleArea(AreaMessage msg);
     }
 }

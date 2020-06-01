@@ -6,5 +6,7 @@
         void HandleRegister(RegisterMessage msg);
         void HandleSpeech(SpeechMessage msg);
         void HandleReady(ReadyMessage msg);
+        void HandleRoom(RoomTravelMessage msg);
+        void HandleArea(AreaTravelMessage msg);
     }
 }

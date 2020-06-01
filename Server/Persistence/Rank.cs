@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Crisis.Persistence
 {
-    class Rank
+    public class Rank
     {
         private string _name;
         [Key]
@@ -23,7 +23,7 @@ namespace Crisis.Persistence
         }
 
         private Faction _faction;
-        public Faction Faction
+        public virtual Faction Faction
         {
             get => _faction;
             set

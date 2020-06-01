@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace Crisis.Persistence
 {
-    class Area
+    public class Area
     {
         [Key]
         [MaxLength(Database.NameLength)]
         public string Name { get; set; }
-        public Faction Faction { get; set; }
+        public virtual Faction Faction { get; set; }
 
         public static Area Lobby
         {

@@ -47,9 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MessageCommunicator.cs" />
+    <Compile Include="Messages\Client\AreaTravelMessage.cs" />
     <Compile Include="Messages\Client\ClientMessage.cs" />
     <Compile Include="Messages\Client\IClientHandler.cs" />
     <Compile Include="Messages\Client\ReadyMessage.cs" />
+    <Compile Include="Messages\Client\RoomTravelMessage.cs" />
+    <Compile Include="Messages\Server\AreaMessage.cs" />
     <Compile Include="Messages\Server\AuthConfirmMessage.cs" />
     <Compile Include="Messages\Server\AuthDenyMessage.cs" />
     <Compile Include="Messages\Server\CharacterMessage.cs" />
@@ -63,6 +66,7 @@
     <Compile Include="Messages\Client\AuthMessage.cs" />
     <Compile Include="Messages\Message.cs" />
     <Compile Include="Messages\Server\RoomMessage.cs" />
+    <Compile Include="Messages\Server\PeopleMessage.cs" />
     <Compile Include="Messages\Server\ServerMessage.cs" />
     <Compile Include="Messages\Server\TimeTurnMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

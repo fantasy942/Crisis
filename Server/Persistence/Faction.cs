@@ -2,7 +2,7 @@
 
 namespace Crisis.Persistence
 {
-    class Faction
+    public class Faction
     {
         [Key]
         [MaxLength(Database.NameLength)]

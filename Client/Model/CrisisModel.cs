@@ -16,15 +16,23 @@ namespace Crisis.Model
         public delegate void HearDelegate(string name, string rank, string text, DateTime time);
         public delegate void TurnDelegate(DateTime time, DateTime turnend, int turn);
         public delegate void CharacterDelegate(string name, string rank, string branch, string faction, bool? ready);
-        public delegate void RoomDelegate(string area, string name, string[] people);
         public delegate void ReadinessDelegate(byte staffready, byte staffneeded, byte headsready, byte headsneeded);
+        public delegate void RoomDelegate(string name);
+        public delegate void AreaDelegate(string name, string[] rooms);
+        public delegate void PeopleOverrideDelegate(string[] people);
+        public delegate void PeopleArrivedDelegate(string[] people);
+        public delegate void PeopleLeftDelegate(string[] people);
 
         public event HearDelegate OnHear;
         public event Action<bool> OnGmChanged;
         public event TurnDelegate OnTimeTurn;
         public event CharacterDelegate OnCharacterChanged;
-        public event RoomDelegate OnRoomChanged;
         public event ReadinessDelegate OnReadinessUpdated;
+        public event RoomDelegate OnRoomChanged;
+        public event AreaDelegate OnAreaChanged;
+        public event PeopleOverrideDelegate OnPeopleOverride;
+        public event PeopleArrivedDelegate OnPeopleArrive;
+        public event PeopleLeftDelegate OnPeopleLeave;
 
         public async Task<ConnectAttemptResult> Connect(string ip, int port, ClientMessage startingMessage)
         {
@@ -103,14 +111,35 @@ namespace Crisis.Model
             OnCharacterChanged?.Invoke(msg.Name, msg.Rank, msg.Branch, msg.Faction, msg.Ready);
         }
 
-        public void HandleRoom(RoomMessage msg)
-        {
-            OnRoomChanged?.Invoke(msg.Area, msg.Room, msg.People);
-        }
-
         public void HandleReadiness(ReadinessMessage msg)
         {
             OnReadinessUpdated?.Invoke(msg.StaffReady, msg.StaffNeeded, msg.HeadsReady, msg.HeadsNeeded);
+        }
+
+        public void HandleRoom(RoomMessage msg)
+        {
+            OnRoomChanged?.Invoke(msg.Room);
+        }
+
+        public void HandleArea(AreaMessage msg)
+        {
+            OnAreaChanged?.Invoke(msg.Area, msg.Rooms);
+        }
+
+        public void HandlePeople(PeopleMessage msg)
+        {
+            switch (msg.Type)
+            {
+                case PeopleMessageType.Override:
+                    OnPeopleOverride?.Invoke(msg.People);
+                    break;
+                case PeopleMessageType.Arrived:
+                    OnPeopleArrive?.Invoke(msg.People);
+                    break;
+                case PeopleMessageType.Left:
+                    OnPeopleLeave?.Invoke(msg.People);
+                    break;
+            }
         }
         #endregion
     }

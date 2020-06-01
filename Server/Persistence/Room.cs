@@ -6,14 +6,14 @@ using System.Runtime.CompilerServices;
 
 namespace Crisis.Persistence
 {
-    class Room
+    public class Room
     {
         [Key]
         [MaxLength(Database.NameLength)]
         public string Name { get; set; }
-        public Faction Faction { get; set; }
+        public virtual Faction Faction { get; set; }
         [Required]
-        public Area Area { get; set; }
+        public virtual Area Area { get; set; }
 
         public static Room Lobby
         {
@@ -31,12 +31,19 @@ namespace Crisis.Persistence
             }
         }
 
-        public void UpdatePeople()
+        public void Arrived(Character character)
         {
-            var people = Database.Context.Characters.Where(x => x.Room == this).ToArray();
-            foreach (var item in people)
+            foreach (var item in Database.Context.Characters.Where(x => x.Room.Name == Name && x != character))
             {
-                item.Client?.Send(RoomMessage.PeopleChanged(people.Select(x => x.Name).ToArray()));
+                item.Client?.Send(new PeopleMessage(PeopleMessageType.Arrived, new[] { character.Name }));
+            }
+        }
+
+        public void Left(Character character)
+        {
+            foreach (var item in Database.Context.Characters.Where(x => x.Room.Name == Name && x != character))
+            {
+                item.Client?.Send(new PeopleMessage(PeopleMessageType.Left, new[] { character.Name }));
             }
         }
     }

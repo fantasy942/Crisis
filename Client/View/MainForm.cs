@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Crisis.Model;
 using Crisis.Messages.Client;
+using System.Collections.Generic;
 
 namespace Crisis.View
 {
@@ -14,12 +15,17 @@ namespace Crisis.View
         private readonly CrisisModel model;
         private readonly GMForm gmForm;
 
+        private readonly List<string> people = new List<string>();
+
         public MainForm(CrisisModel model)
         {
             this.model = model;
             RegisterModelEvents();
             gmForm = new GMForm(model);
             InitializeComponent();
+            AreaBox.SelectedIndex = 0;
+            AreaBox.SelectedIndexChanged += AreaBox_SelectedIndexChanged;
+            TravelRoomList.SelectedIndexChanged += TravelRoomList_SelectedIndexChanged;
         }
 
         private void RegisterModelEvents()
@@ -51,29 +57,65 @@ namespace Crisis.View
                 if (ready != null) ReadyCheck.Checked = ready.Value;
             };
 
-            model.OnRoomChanged += (area, name, people) =>
-            {
-                if (area != null) AreaLabel.Text = area;
-                if (name != null) RoomLabel.Text = name;
-                if (people != null)
-                {
-                    PopulationLabel.Text = people.Length.ToString();
-                    if (people.Length == 0)
-                    {
-                        RoomPeopleBox.Text = "Empty.";
-                    }
-                    else
-                    {
-                        RoomPeopleBox.Text = string.Join(Environment.NewLine, people);
-                    }
-                }
-            };
-
             model.OnReadinessUpdated += (staffready, staffneeded, officerready, officerneeded) =>
             {
                 AdminReadyLabel.Text = $"Heads ready{Environment.NewLine}{officerready}/{officerneeded}%";
                 StaffReadyLabel.Text = $"Staff ready{Environment.NewLine}{staffready}/{staffneeded}%";
             };
+
+            model.OnRoomChanged += (name) =>
+            {
+                RoomLabel.Text = name;
+                SetRoomIndex(TravelRoomList.Items.IndexOf(name));
+            };
+
+            model.OnAreaChanged += (name, rooms) =>
+            {
+                AreaLabel.Text = name;
+                TravelRoomList.Items.Clear();
+                TravelRoomList.Items.AddRange(rooms);
+            };
+
+            model.OnPeopleOverride += (people) =>
+            {
+                this.people.Clear();
+                this.people.AddRange(people);
+                ChangePeople();
+            };
+
+            model.OnPeopleArrive += (people) =>
+            {
+                this.people.AddRange(people);
+                ChangePeople();
+            };
+
+            model.OnPeopleLeave += (people) =>
+            {
+                foreach (var item in people)
+                {
+                    this.people.Remove(item);
+                }
+                ChangePeople();
+            };
+        }
+
+        private void ChangePeople()
+        {
+            if (people.Count == 0)
+            {
+                RoomPeopleBox.Text = "Empty.";
+            }
+            else
+            {
+                RoomPeopleBox.Text = string.Join(Environment.NewLine, people);
+            }
+        }
+
+        private void SetRoomIndex(int ind)
+        {
+            TravelRoomList.SelectedIndexChanged -= TravelRoomList_SelectedIndexChanged;
+            TravelRoomList.SelectedIndex = ind;
+            TravelRoomList.SelectedIndexChanged += TravelRoomList_SelectedIndexChanged;
         }
 
         private void SendButton_Click(object sender, EventArgs e)
@@ -112,6 +154,16 @@ namespace Crisis.View
         private void ToolstripExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        private void TravelRoomList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            model.Send(new RoomTravelMessage(TravelRoomList.SelectedItem.ToString()));
+        }
+
+        private void AreaBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

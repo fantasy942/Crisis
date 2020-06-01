@@ -16,6 +16,7 @@ namespace Crisis.Persistence
         {
             Directory.CreateDirectory(Path.GetDirectoryName(Configuration.DatabasePath));
             optionsBuilder.UseSqlite($"Data Source={Configuration.DatabasePath}");
+            optionsBuilder.UseLazyLoadingProxies();
         }
     }
 }
