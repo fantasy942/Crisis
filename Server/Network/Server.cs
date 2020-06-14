@@ -14,26 +14,24 @@ namespace Crisis.Network
         public static void Start()
         {
             server.Start(Configuration.Port);
-            _ = MessageLoop();
-            _ = ConnectionLoop();
         }
 
         public static void Stop() => server.Stop();
 
-        private static async Task MessageLoop()
+        public static void AcceptMessages()
         {
-            while (server.Connected)
+            while (server.MessageAvailable)
             {
-                var msg = await server.NextMessageAsync();
+                var msg = server.NextMessage();
                 clients[msg.Source].Receive((ClientMessage)msg.Message);
             }
         }
 
-        private static async Task ConnectionLoop()
+        public static void AcceptConnections()
         {
-            while (server.Connected)
+            while (server.ConnectionAvailable)
             {
-                var conn = await server.NextConnectionAsync();
+                var conn = server.NextConnection();
                 var client = new Client(conn, Disconnect);
                 clients.Add(conn, client);
             }

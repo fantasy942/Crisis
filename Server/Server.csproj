@@ -177,6 +177,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Persistence\CrisisDatabaseContext.cs" />
     <Compile Include="Persistence\Database.cs" />
+    <Compile Include="Persistence\EFExtensions.cs" />
     <Compile Include="Persistence\Faction.cs" />
     <Compile Include="Network\Server.cs" />
     <Compile Include="Network\Client.cs" />

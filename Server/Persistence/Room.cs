@@ -9,23 +9,28 @@ namespace Crisis.Persistence
     public class Room
     {
         [Key]
-        [MaxLength(Database.NameLength)]
         public string Name { get; set; }
         public virtual Faction Faction { get; set; }
         [Required]
         public virtual Area Area { get; set; }
+
+        public Room() { }
+
+        public Room(string name, Area area)
+        {
+            Name = name;
+            Area = area;
+        }
 
         public static Room Lobby
         {
             get
             {
                 const string lobname = "Lobby";
-                var lobby = Database.Context.Rooms.Include(x => x.Area).SingleOrDefault(x => x.Name == lobname);
+                var lobby = Database.Game.Rooms.IncLocal(y => y.Where(x => x.Name == lobname)).SingleOrDefault();
                 if (lobby == null)
                 {
                     lobby = new Room { Name = lobname, Area = Area.Lobby };
-                    Database.Context.Rooms.Add(lobby);
-                    Database.Context.SaveChanges();
                 }
                 return lobby;
             }
@@ -33,17 +38,17 @@ namespace Crisis.Persistence
 
         public void Arrived(Character character)
         {
-            foreach (var item in Database.Context.Characters.Where(x => x.Room.Name == Name && x != character))
+            foreach (var item in Database.Game.Characters.IncLocal(y => y.Where(x => x.Room.Name == Name && x.Name != character.Name)))
             {
-                item.Client?.Send(new PeopleMessage(PeopleMessageType.Arrived, new[] { character.Name }));
+                item.Client?.EnqueueMessages(new PeopleMessage(PeopleMessageType.Arrived, new[] { character.Name }));
             }
         }
 
         public void Left(Character character)
         {
-            foreach (var item in Database.Context.Characters.Where(x => x.Room.Name == Name && x != character))
+            foreach (var item in Database.Game.Characters.IncLocal(y => y.Where(x => x.Room.Name == Name && x.Name != character.Name)))
             {
-                item.Client?.Send(new PeopleMessage(PeopleMessageType.Left, new[] { character.Name }));
+                item.Client?.EnqueueMessages(new PeopleMessage(PeopleMessageType.Left, new[] { character.Name }));
             }
         }
     }

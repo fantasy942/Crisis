@@ -12,15 +12,13 @@ namespace Crisis.Persistence
     {
         private string _name;
         [Key]
-        [MaxLength(Database.NameLength)]
         public string Name
         {
             get => _name;
             set
             {
                 _name = value;
-                Client?.Send(new CharacterMessage { Name = _name });
-                Database.Context.SaveChanges();
+                Client?.EnqueueMessages(new CharacterMessage { Name = _name });
             }
         }
 
@@ -31,11 +29,10 @@ namespace Crisis.Persistence
             set
             {
                 _ready = value;
-                Client?.Send(new CharacterMessage { Ready = _ready });
-                Database.Context.SaveChanges();
+                Client?.EnqueueMessages(new CharacterMessage { Ready = _ready });
                 foreach (var item in Client.Clients)
                 {
-                    item.Send(new ReadinessMessage(0, 79, 0, 99));
+                    item.EnqueueMessages(new ReadinessMessage(0, 79, 0, 99));
                 }
             }
         }
@@ -48,8 +45,7 @@ namespace Crisis.Persistence
             {
                 if (_rank == value) return;
                 _rank = value;
-                Client?.Send(new CharacterMessage { Rank = _rank.Name });
-                Database.Context.SaveChanges();
+                Client?.EnqueueMessages(new CharacterMessage { Rank = _rank.Name });
             }
         }
 
@@ -63,14 +59,13 @@ namespace Crisis.Persistence
 
                 var old = _room;
                 _room = value;
-                Database.Context.SaveChanges();
                 
-                Client?.Send(
-                    new AreaMessage(Room.Area.Name, Database.Context.Rooms.Where(x => x.Area == Room.Area).Select(x => x.Name).ToArray()),
+                Client?.EnqueueMessages(
+                    new AreaMessage(Room.Area.Name, Database.Game.Rooms.IncLocal(y => y.Where(x => x.Area == Room.Area)).Select(x => x.Name).ToArray()),
                     new RoomMessage(value.Name),
                     new PeopleMessage(
                         PeopleMessageType.Override,
-                        Database.Context.Characters.Where(x => x.Room == _room).Select(x => x.Name).ToArray())
+                        Database.Game.Characters.IncLocal(y => y.Where(x => x.Room == _room)).Select(x => x.Name).ToArray())
                     );
                 value.Arrived(this);
                 old.Left(this);
@@ -89,11 +84,12 @@ namespace Crisis.Persistence
             _name = name;
             _room = room;
             _rank = rank;
+            Database.Game.Characters.Add(this);
         }
 
         public void Speak(string text)
         {
-            foreach (var item in Database.Context.Characters.Where(x => x.Room == Room))
+            foreach (var item in Database.Game.Characters.IncLocal(x => x.Where(y => y.Room == Room)))
             {
                 item.Hear(this, text);
             }
@@ -101,7 +97,7 @@ namespace Crisis.Persistence
 
         public void Hear(Character source, string text)
         {
-            Client?.Send(new HearMessage(DateTime.Now, source.Rank?.Name, source.Name, text));
+            Client?.EnqueueMessages(new HearMessage(DateTime.Now, source.Rank?.Name, source.Name, text));
         }
     }
 }

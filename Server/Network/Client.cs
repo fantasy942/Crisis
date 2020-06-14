@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Crisis.Messages;
 using Crisis.Messages.Client;
 using Crisis.Messages.Server;
@@ -15,6 +14,8 @@ namespace Crisis.Network
         private readonly Connection<Message> connection;
 
         private readonly Action<Connection<Message>> onDisconnect;
+
+        private readonly List<ServerMessage> toSend = new List<ServerMessage>();
 
         /// <summary>
         /// While the client is not authed it can only receive auth and register messages, the rest will be dropped.
@@ -49,9 +50,18 @@ namespace Crisis.Network
             clients.Remove(this);
         }
 
-        public void Send(params ServerMessage[] msg)
+        public void EnqueueMessages(params ServerMessage[] msg)
         {
-            connection.Send(msg);
+            toSend.AddRange(msg);
+        }
+
+        /// <summary>
+        /// Flushes the message queue.
+        /// </summary>
+        public void Send()
+        {
+            connection.Send(toSend.ToArray());
+            toSend.Clear();
         }
 
         public void Receive(ClientMessage msg)
@@ -68,35 +78,31 @@ namespace Crisis.Network
                 return;
             }
 
-            Character = Database.Context.Characters.SingleOrDefault(x => x.Name == msg.Mail);
+            Character = Database.Game.Characters.IncLocal(y => y.Where(x => x.Name == msg.Mail)).SingleOrDefault();
             if (Character == null)
             {
                 Character = new Character(msg.Mail, Room.Lobby, null);
-                Database.Context.Characters.Add(Character);
             }
             Character.Client = this;
-            Database.Context.SaveChanges();
 
-            Send(
+            EnqueueMessages(
                 new AuthConfirmMessage(),
                 new GMChangedMessage(true),
                 new TimeTurnMessage(DateTime.UtcNow, DateTime.UtcNow.AddHours(1), 42),
                 new CharacterMessage { Name = Character.Name, /*Rank = Character.Rank.Name, */ Branch = "???", Faction = "None", Ready = Character.Ready },
-                new AreaMessage(Character.Room.Area.Name, Database.Context.Rooms.Where(x => x.Area == Character.Room.Area).Select(x => x.Name).ToArray()),
+                new AreaMessage(Character.Room.Area.Name, Database.Game.Rooms.IncLocal(y => y.Where(x => x.Area == Character.Room.Area)).Select(x => x.Name).ToArray()),
                 new RoomMessage(Character.Room.Name),
                 new PeopleMessage(
                     PeopleMessageType.Override,
-                    Database.Context.Characters.Where(x => x.Room == Character.Room).Select(x => x.Name).ToArray())
+                    Database.Game.Characters.IncLocal(y => y.Where(x => x.Room == Character.Room)).Select(x => x.Name).ToArray())
                 );
-
-            Database.Context.SaveChanges();
 
             Authed = true;
         }
 
         public void HandleRegister(RegisterMessage msg)
         {
-            Send(new RegisterResponeMessage(RegisterResponse.Ok)); //TODO: Get a db
+            EnqueueMessages(new RegisterResponeMessage(RegisterResponse.Ok)); //TODO: Get a db
         }
 
         public void HandleSpeech(SpeechMessage msg)
@@ -113,13 +119,13 @@ namespace Crisis.Network
             }
             else
             {
-                Send(new CharacterMessage { Ready = false });
+                EnqueueMessages(new CharacterMessage { Ready = false });
             }
         }
 
         public void HandleRoom(RoomTravelMessage msg)
         {
-            Character.Room = Database.Context.Rooms.SingleOrDefault(x => x.Area == Character.Room.Area && x.Name == msg.Room) ?? Character.Room;
+            Character.Room = Database.Game.Rooms.IncLocal(y => y.Where(x => x.Area == Character.Room.Area && x.Name == msg.Room)).SingleOrDefault() ?? Character.Room;
         }
 
         public void HandleArea(AreaTravelMessage msg)

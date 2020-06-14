@@ -6,20 +6,26 @@ namespace Crisis.Persistence
     public class Area
     {
         [Key]
-        [MaxLength(Database.NameLength)]
         public string Name { get; set; }
         public virtual Faction Faction { get; set; }
+
+        public Area() { }
+
+        public Area(string name)
+        {
+            Name = name;
+            Database.Game.Areas.Add(this);
+        }
 
         public static Area Lobby
         {
             get
             {
                 const string lobname = "Lobby";
-                var lobby = Database.Context.Areas.SingleOrDefault(x => x.Name == lobname);
+                var lobby = Database.Game.Areas.IncLocal(y => y.Where(x => x.Name == lobname)).SingleOrDefault();
                 if (lobby == null)
                 {
-                    lobby = new Area { Name = "Lobby" };
-                    Database.Context.Areas.Add(lobby);
+                    lobby = new Area("Lobby");
                 }
                 return lobby;
             }
